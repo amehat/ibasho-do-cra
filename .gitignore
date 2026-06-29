@@ -42,3 +42,15 @@ Thumbs.db
 __pycache__/
 *.pyc
 .uv/
+
+# --- monorepo build artifacts ---
+node_modules/
+.turbo/
+dist/
+.output/
+.nuxt/
+.env
+.env.*
+!.env.example
+*.local
+openapi.json
