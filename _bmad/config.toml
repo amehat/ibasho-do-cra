@@ -10,6 +10,9 @@
 # Those files are never touched by the installer.
 # ─────────────────────────────────────────────────────────────────
 
+[core]
+document_output_language = "French"
+
 [modules.bmm]
 planning_artifacts = "{project-root}/{output_folder}/planning-artifacts"
 implementation_artifacts = "{project-root}/{output_folder}/implementation-artifacts"
