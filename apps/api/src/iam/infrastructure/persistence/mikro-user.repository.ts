@@ -22,6 +22,12 @@ export class MikroUserRepository implements UserRepository {
     return new User(row.id, Email.create(row.email), PasswordHash.fromHashed(row.passwordHash), row.isActive);
   }
 
+  async findByIds(ids: string[]): Promise<User[]> {
+    if (ids.length === 0) return [];
+    const rows = await this.em.fork().find(UserOrmEntity, { id: { $in: ids } });
+    return rows.map((row) => new User(row.id, Email.create(row.email), PasswordHash.fromHashed(row.passwordHash), row.isActive));
+  }
+
   async save(user: User): Promise<void> {
     const em = this.em.fork();
     const row = (await em.findOne(UserOrmEntity, { id: user.id })) ?? new UserOrmEntity();

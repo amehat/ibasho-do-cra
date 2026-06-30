@@ -6,3 +6,6 @@ export type WhoamiResponse = components["schemas"]["WhoamiResponseDto"];
 export type OrganisationIdResponse = components["schemas"]["OrganisationIdResponseDto"];
 export type Organisation = components["schemas"]["OrganisationDto"];
 export type CreateOrganisationInput = components["schemas"]["CreateOrganisationDto"];
+export type Member = components["schemas"]["MemberDto"];
+export type AddMemberInput = components["schemas"]["AddMemberDto"];
+export type AddMemberResponse = components["schemas"]["AddMemberResponseDto"];

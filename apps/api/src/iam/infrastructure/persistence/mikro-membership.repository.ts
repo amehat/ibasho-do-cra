@@ -23,4 +23,24 @@ export class MikroMembershipRepository implements MembershipRepository {
     const rows = await this.em.fork().find(MembershipOrmEntity, { orgId, isActive: true });
     return rows.filter((r) => r.roles.includes(Role.OWNER)).map((r) => this.toDomain(r));
   }
+  async findByOrgAndUser(orgId: string, userId: string): Promise<Membership | null> {
+    const r = await this.em.fork().findOne(MembershipOrmEntity, { orgId, userId });
+    return r ? this.toDomain(r) : null;
+  }
+
+  async findByOrg(orgId: string): Promise<Membership[]> {
+    const rows = await this.em.fork().find(MembershipOrmEntity, { orgId });
+    return rows.map((r) => this.toDomain(r));
+  }
+
+  async save(membership: Membership): Promise<void> {
+    const em = this.em.fork();
+    const row = (await em.findOne(MembershipOrmEntity, { id: membership.id })) ?? new MembershipOrmEntity();
+    row.id = membership.id;
+    row.orgId = membership.orgId;
+    row.userId = membership.userId;
+    row.roles = membership.roles;
+    row.isActive = membership.isActive;
+    await em.persistAndFlush(row);
+  }
 }

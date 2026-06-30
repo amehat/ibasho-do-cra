@@ -1,12 +1,12 @@
 import { Role } from "./role";
 
-// Agrégat PUR : lien user <-> organisation. Désactivable, jamais supprimé (AD-11).
+// Agrégat PUR : lien user <-> organisation. Désactivable, jamais supprimé (AD-11). Rôles cumulables (FR4).
 export class Membership {
   constructor(
     public readonly id: string,
     public readonly orgId: string,
     public readonly userId: string,
-    public readonly roles: Role[],
+    public roles: Role[],
     public isActive: boolean = true
   ) {}
 
@@ -14,8 +14,22 @@ export class Membership {
     return new Membership(id, orgId, userId, [Role.OWNER], true);
   }
 
+  hasRole(role: Role): boolean {
+    return this.roles.includes(role);
+  }
+
   isOwner(): boolean {
-    return this.roles.includes(Role.OWNER);
+    return this.hasRole(Role.OWNER);
+  }
+
+  setRoles(roles: Role[]): void {
+    this.roles = roles;
+  }
+
+  // Réactive une membership désactivée (AD-11) en remplaçant ses rôles — sert à la ré-affectation idempotente.
+  reactivate(roles: Role[]): void {
+    this.isActive = true;
+    this.roles = roles;
   }
 
   deactivate(): void {

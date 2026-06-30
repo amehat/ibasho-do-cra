@@ -10,6 +10,13 @@ import { MikroMembershipRepository } from "./infrastructure/persistence/mikro-me
 import { OrganisationController } from "./infrastructure/http/organisation.controller";
 import { CreateOrganisation } from "./application/create-organisation.use-case";
 import { ListMyOrganisations } from "./application/list-my-organisations.use-case";
+import { AddOrUpdateMember } from "./application/add-or-update-member.use-case";
+import { ChangeMemberRoles } from "./application/change-member-roles.use-case";
+import { DeactivateMember } from "./application/deactivate-member.use-case";
+import { ListMembers } from "./application/list-members.use-case";
+import { MembersController } from "./infrastructure/http/members.controller";
+import { MembershipPolicyAdapter } from "./infrastructure/security/membership-policy.adapter";
+import { MEMBERSHIP_POLICY } from "./application/ports/membership-policy.port";
 import { ORGANISATION_REPOSITORY } from "./domain/ports/organisation-repository.port";
 import { MEMBERSHIP_REPOSITORY } from "./domain/ports/membership-repository.port";
 import { MikroUserRepository } from "./infrastructure/persistence/mikro-user.repository";
@@ -40,10 +47,11 @@ import { TOKEN_GENERATOR } from "./domain/ports/token-generator.port";
       { name: "login-global", ttl: 60000, limit: 30 } // plafond /min par IP (anti-spraying)
     ])
   ],
-  controllers: [AuthController, OrganisationController],
+  controllers: [AuthController, OrganisationController, MembersController],
   providers: [
     RegisterUser, AuthenticateCredentials, CreateSession, ResolveSession, RevokeSession,
     CreateOrganisation, ListMyOrganisations,
+    AddOrUpdateMember, ChangeMemberRoles, DeactivateMember, ListMembers,
     LoginThrottlerGuard,
     { provide: USER_REPOSITORY, useClass: MikroUserRepository },
     { provide: SESSION_REPOSITORY, useClass: MikroSessionRepository },
@@ -52,7 +60,8 @@ import { TOKEN_GENERATOR } from "./domain/ports/token-generator.port";
     { provide: ID_GENERATOR, useClass: UuidIdGenerator },
     { provide: TOKEN_GENERATOR, useClass: CryptoTokenGenerator },
     { provide: ORGANISATION_REPOSITORY, useClass: MikroOrganisationRepository },
-    { provide: MEMBERSHIP_REPOSITORY, useClass: MikroMembershipRepository }
+    { provide: MEMBERSHIP_REPOSITORY, useClass: MikroMembershipRepository },
+    { provide: MEMBERSHIP_POLICY, useClass: MembershipPolicyAdapter }
   ]
 })
 export class IamModule {}
