@@ -1,33 +1,51 @@
 <script setup lang="ts">
-// Formulaire brut (design système = story 1.5). Accès données via le BFF uniquement (AD-19).
+import { useSession } from "~/stores/session";
+const session = useSession();
 const nom = ref("");
 const type = ref<"prestataire" | "cliente">("prestataire");
 const message = ref("");
+const loading = ref(false);
+
 async function submit() {
+  message.value = "";
+  loading.value = true;
   try {
-    const res = await $fetch<import("@cra/contracts").OrganisationIdResponse>("/api/organisations", {
-      method: "POST",
-      body: { nom: nom.value, type: type.value }
-    });
-    message.value = `Organisation créée (${res.organisationId}).`;
+    await $fetch("/api/organisations", { method: "POST", body: { nom: nom.value, type: type.value } });
+    session.setProfile(await $fetch("/api/me"));
+    await navigateTo("/");
   } catch {
-    message.value = "Échec de la création (es-tu connecté ?).";
+    message.value = "Échec de la création.";
+  } finally {
+    loading.value = false;
   }
 }
 </script>
 <template>
-  <main style="font-family: system-ui; padding: 2rem; max-width: 460px;">
-    <h1>Nouvelle organisation</h1>
-    <form @submit.prevent="submit">
-      <label>Nom <input v-model="nom" required maxlength="200" /></label>
-      <label>Type
-        <select v-model="type">
+  <div class="wrap">
+    <span class="eyebrow">Organisation</span>
+    <h1 class="title">Nouvelle organisation</h1>
+    <form class="form card" @submit.prevent="submit">
+      <FormField label="Nom" for="nom" required>
+        <BaseInput id="nom" v-model="nom" required :maxlength="200" />
+      </FormField>
+      <FormField label="Type" for="type" required>
+        <select id="type" v-model="type" class="select">
           <option value="prestataire">Prestataire</option>
           <option value="cliente">Cliente</option>
         </select>
-      </label>
-      <button type="submit">Créer</button>
+      </FormField>
+      <ActionBar>
+        <BaseButton type="submit" :loading="loading">Créer</BaseButton>
+        <BaseButton to="/" variant="secondary">Annuler</BaseButton>
+      </ActionBar>
+      <p v-if="message" class="msg-err">{{ message }}</p>
     </form>
-    <p>{{ message }}</p>
-  </main>
+  </div>
 </template>
+<style scoped>
+.wrap { max-width: 480px; }
+.title { font: 700 26px Outfit; margin: 4px 0 var(--s-5); }
+.form { padding: var(--s-5); display: flex; flex-direction: column; gap: var(--s-4); }
+.select { width: 100%; min-height: 44px; padding: 0 12px; border: 1px solid var(--line-2); border-radius: var(--r-control); background: var(--surface); font: 400 15px Inter; }
+.msg-err { color: var(--st-reject-ink); margin: 0; }
+</style>

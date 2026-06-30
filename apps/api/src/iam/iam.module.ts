@@ -14,6 +14,8 @@ import { AddOrUpdateMember } from "./application/add-or-update-member.use-case";
 import { ChangeMemberRoles } from "./application/change-member-roles.use-case";
 import { DeactivateMember } from "./application/deactivate-member.use-case";
 import { ListMembers } from "./application/list-members.use-case";
+import { GetMyProfile } from "./application/get-my-profile.use-case";
+import { MeController } from "./infrastructure/http/me.controller";
 import { MembersController } from "./infrastructure/http/members.controller";
 import { MembershipPolicyAdapter } from "./infrastructure/security/membership-policy.adapter";
 import { MEMBERSHIP_POLICY } from "./application/ports/membership-policy.port";
@@ -47,11 +49,11 @@ import { TOKEN_GENERATOR } from "./domain/ports/token-generator.port";
       { name: "login-global", ttl: 60000, limit: 30 } // plafond /min par IP (anti-spraying)
     ])
   ],
-  controllers: [AuthController, OrganisationController, MembersController],
+  controllers: [AuthController, OrganisationController, MembersController, MeController],
   providers: [
     RegisterUser, AuthenticateCredentials, CreateSession, ResolveSession, RevokeSession,
     CreateOrganisation, ListMyOrganisations,
-    AddOrUpdateMember, ChangeMemberRoles, DeactivateMember, ListMembers,
+    AddOrUpdateMember, ChangeMemberRoles, DeactivateMember, ListMembers, GetMyProfile,
     LoginThrottlerGuard,
     { provide: USER_REPOSITORY, useClass: MikroUserRepository },
     { provide: SESSION_REPOSITORY, useClass: MikroSessionRepository },
