@@ -17,8 +17,13 @@ let orm: MikroORM;
 
 async function cleanup(): Promise<void> {
   const c = orm.em.getConnection();
+  const rows: Array<{ org_id: string }> = await c
+    .execute("select org_id from memberships where user_id in (?, ?)", [USER_A, USER_B])
+    .catch(() => []);
   await c.execute("delete from memberships where user_id in (?, ?)", [USER_A, USER_B]).catch(() => {});
-  await c.execute("delete from organisations where id not in (select org_id from memberships)").catch(() => {});
+  for (const r of rows) {
+    await c.execute("delete from organisations where id = ?", [r.org_id]).catch(() => {});
+  }
 }
 
 beforeAll(async () => {

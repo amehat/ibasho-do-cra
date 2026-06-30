@@ -24,8 +24,9 @@ export class MikroOrganisationRepository implements OrganisationRepository {
       m.userId = owner.userId;
       m.roles = owner.roles;
       m.isActive = owner.isActive;
-      em.persist(org);
-      em.persist(m);
+      // Ordre explicite : l'organisation AVANT la membership (FK org_id) — l'ORM n'a pas de relation déclarée.
+      await em.persistAndFlush(org);
+      await em.persistAndFlush(m);
     });
   }
 

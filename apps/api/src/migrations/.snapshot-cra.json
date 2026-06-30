@@ -350,7 +350,14 @@
           "constraint": true
         }
       ],
-      "checks": [],
+      "checks": [
+        {
+          "name": "chk_org_type",
+          "columnName": null,
+          "definition": "check `type` in ('prestataire','cliente')",
+          "expression": "`type` in ('prestataire','cliente')"
+        }
+      ],
       "foreignKeys": {},
       "nativeEnums": {},
       "comment": ""
@@ -485,7 +492,21 @@
         }
       ],
       "checks": [],
-      "foreignKeys": {},
+      "foreignKeys": {
+        "fk_memberships_org": {
+          "columnNames": [
+            "org_id"
+          ],
+          "constraintName": "fk_memberships_org",
+          "localTableName": "memberships",
+          "referencedTableName": "organisations",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "updateRule": "cascade",
+          "deleteRule": "restrict"
+        }
+      },
       "nativeEnums": {},
       "comment": ""
     }

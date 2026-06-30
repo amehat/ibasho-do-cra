@@ -5,7 +5,7 @@ const type = ref<"prestataire" | "cliente">("prestataire");
 const message = ref("");
 async function submit() {
   try {
-    const res = await $fetch<{ organisationId: string }>("/api/organisations", {
+    const res = await $fetch<import("@cra/contracts").OrganisationIdResponse>("/api/organisations", {
       method: "POST",
       body: { nom: nom.value, type: type.value }
     });

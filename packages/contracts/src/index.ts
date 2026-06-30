@@ -1,6 +1,8 @@
-// Contrat d'API consommé par le front (AD-12). Types DÉRIVÉS du schéma généré (anti-drift) :
-// si l'API change, `schema.ts` est régénéré en CI et tout écart casse le build/diff.
+// Contrat d'API consommé par le front (AD-12). Types DÉRIVÉS du schéma généré (anti-drift).
 import type { components } from "./generated/schema.js";
 
 export type HealthResponse = components["schemas"]["HealthResponseDto"];
 export type WhoamiResponse = components["schemas"]["WhoamiResponseDto"];
+export type OrganisationIdResponse = components["schemas"]["OrganisationIdResponseDto"];
+export type Organisation = components["schemas"]["OrganisationDto"];
+export type CreateOrganisationInput = components["schemas"]["CreateOrganisationDto"];

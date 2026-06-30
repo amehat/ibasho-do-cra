@@ -10,7 +10,8 @@ export class MikroMembershipRepository implements MembershipRepository {
   constructor(private readonly em: EntityManager) {}
 
   private toDomain(r: MembershipOrmEntity): Membership {
-    return new Membership(r.id, r.orgId, r.userId, r.roles, r.isActive);
+    const roles = Array.isArray(r.roles) ? r.roles : [];
+    return new Membership(r.id, r.orgId, r.userId, roles, r.isActive);
   }
 
   async findActiveByUser(userId: string): Promise<Membership[]> {
