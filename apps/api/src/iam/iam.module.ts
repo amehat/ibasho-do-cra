@@ -3,6 +3,15 @@ import { MikroOrmModule } from "@mikro-orm/nestjs";
 import { ThrottlerModule } from "@nestjs/throttler";
 import { UserOrmEntity } from "./infrastructure/persistence/user.orm-entity";
 import { SessionOrmEntity } from "./infrastructure/persistence/session.orm-entity";
+import { OrganisationOrmEntity } from "./infrastructure/persistence/organisation.orm-entity";
+import { MembershipOrmEntity } from "./infrastructure/persistence/membership.orm-entity";
+import { MikroOrganisationRepository } from "./infrastructure/persistence/mikro-organisation.repository";
+import { MikroMembershipRepository } from "./infrastructure/persistence/mikro-membership.repository";
+import { OrganisationController } from "./infrastructure/http/organisation.controller";
+import { CreateOrganisation } from "./application/create-organisation.use-case";
+import { ListMyOrganisations } from "./application/list-my-organisations.use-case";
+import { ORGANISATION_REPOSITORY } from "./domain/ports/organisation-repository.port";
+import { MEMBERSHIP_REPOSITORY } from "./domain/ports/membership-repository.port";
 import { MikroUserRepository } from "./infrastructure/persistence/mikro-user.repository";
 import { MikroSessionRepository } from "./infrastructure/persistence/mikro-session.repository";
 import { Argon2PasswordHasher } from "./infrastructure/security/argon2-password-hasher";
@@ -25,22 +34,25 @@ import { TOKEN_GENERATOR } from "./domain/ports/token-generator.port";
 
 @Module({
   imports: [
-    MikroOrmModule.forFeature([UserOrmEntity, SessionOrmEntity]),
+    MikroOrmModule.forFeature([UserOrmEntity, SessionOrmEntity, OrganisationOrmEntity, MembershipOrmEntity]),
     ThrottlerModule.forRoot([
       { name: "login-email", ttl: 60000, limit: 5 },   // 5/min par compte
       { name: "login-global", ttl: 60000, limit: 30 } // plafond /min par IP (anti-spraying)
     ])
   ],
-  controllers: [AuthController],
+  controllers: [AuthController, OrganisationController],
   providers: [
     RegisterUser, AuthenticateCredentials, CreateSession, ResolveSession, RevokeSession,
+    CreateOrganisation, ListMyOrganisations,
     LoginThrottlerGuard,
     { provide: USER_REPOSITORY, useClass: MikroUserRepository },
     { provide: SESSION_REPOSITORY, useClass: MikroSessionRepository },
     { provide: PASSWORD_HASHER, useClass: Argon2PasswordHasher },
     { provide: CLOCK, useClass: SystemClock },
     { provide: ID_GENERATOR, useClass: UuidIdGenerator },
-    { provide: TOKEN_GENERATOR, useClass: CryptoTokenGenerator }
+    { provide: TOKEN_GENERATOR, useClass: CryptoTokenGenerator },
+    { provide: ORGANISATION_REPOSITORY, useClass: MikroOrganisationRepository },
+    { provide: MEMBERSHIP_REPOSITORY, useClass: MikroMembershipRepository }
   ]
 })
 export class IamModule {}

@@ -6,12 +6,14 @@ import { Migrator } from "@mikro-orm/migrations";
 import { HealthCheck } from "./shared-kernel/persistence/health-check.entity";
 import { UserOrmEntity } from "./iam/infrastructure/persistence/user.orm-entity";
 import { SessionOrmEntity } from "./iam/infrastructure/persistence/session.orm-entity";
+import { OrganisationOrmEntity } from "./iam/infrastructure/persistence/organisation.orm-entity";
+import { MembershipOrmEntity } from "./iam/infrastructure/persistence/membership.orm-entity";
 
 // Connexion paresseuse (connect:false) : compatible cold-start Passenger et émission OpenAPI sans BDD.
 // Timeouts bornés : une DB injoignable retombe vite, /health ne pend pas (AD-24 liveness).
 // Migrations jouées explicitement au déploiement, jamais au boot (AD-18).
 export default defineConfig({
-  entities: [HealthCheck, UserOrmEntity, SessionOrmEntity],
+  entities: [HealthCheck, UserOrmEntity, SessionOrmEntity, OrganisationOrmEntity, MembershipOrmEntity],
   host: process.env.DB_HOST ?? "localhost",
   port: Number(process.env.DB_PORT ?? 3306),
   dbName: process.env.DB_NAME ?? "cra",
