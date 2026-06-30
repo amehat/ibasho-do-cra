@@ -1,0 +1,20 @@
+{
+  "name": "@cra/contracts",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc --noEmit -p tsconfig.json",
+    "lint": "echo 'contracts: no lint'",
+    "test": "echo 'contracts: no test'",
+    "generate:client": "node scripts/generate.mjs"
+  },
+  "devDependencies": {
+    "openapi-typescript": "^7.4.0",
+    "@cra/config": "workspace:*"
+  }
+}

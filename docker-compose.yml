@@ -1,0 +1,22 @@
+# Base de données locale de dev (MariaDB, comme o2switch). `docker compose up -d` puis `pnpm db:migrate`.
+services:
+  mariadb:
+    image: mariadb:10.11
+    container_name: cra-mariadb
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: cra
+      MARIADB_USER: cra
+      MARIADB_PASSWORD: crapwd
+    volumes:
+      - cra-db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+volumes:
+  cra-db-data:

@@ -1,0 +1,7 @@
+{
+  "name": "@cra/config",
+  "version": "0.0.0",
+  "private": true,
+  "files": ["tsconfig.base.json"],
+  "scripts": { "build": "echo 'config: no build'", "lint": "echo 'config: no lint'", "test": "echo 'config: no test'" }
+}

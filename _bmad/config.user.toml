@@ -10,7 +10,7 @@
 # ─────────────────────────────────────────────────────────────────
 
 [core]
-user_name = "Arnaud"
+communication_language = "French"
 
 [modules.bmm]
 user_skill_level = "intermediate"
