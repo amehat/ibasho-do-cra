@@ -9,7 +9,7 @@ const session = useSession();
         <span class="eyebrow">Tableau de bord</span>
         <h1 class="title">Bonjour</h1>
       </div>
-      <NuxtLink to="/organisation/nouvelle"><BaseButton>+ Nouvelle organisation</BaseButton></NuxtLink>
+      <BaseButton to="/organisation/nouvelle">+ Nouvelle organisation</BaseButton>
     </header>
 
     <section v-if="session.organisations.length" class="grid">
@@ -26,7 +26,7 @@ const session = useSession();
 
     <div v-else class="empty card">
       <p>Aucune organisation pour l'instant.</p>
-      <NuxtLink to="/organisation/nouvelle"><BaseButton>Créer ma première organisation</BaseButton></NuxtLink>
+      <BaseButton to="/organisation/nouvelle">Créer ma première organisation</BaseButton>
     </div>
   </div>
 </template>

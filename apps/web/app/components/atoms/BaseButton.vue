@@ -1,13 +1,25 @@
 <script setup lang="ts">
+// Polymorphe : avec `to`, rend un <NuxtLink> (ancre) stylé en bouton — jamais un
+// <button> imbriqué dans une ancre (HTML invalide -> désync d'hydratation, nav morte).
 defineProps<{
   variant?: "primary" | "secondary" | "ghost" | "destructive";
   type?: "button" | "submit";
+  to?: string;
   disabled?: boolean;
   loading?: boolean;
 }>();
 </script>
 <template>
+  <NuxtLink
+    v-if="to"
+    :to="to"
+    :class="['btn', `btn--${variant ?? 'primary'}`]"
+  >
+    <BaseIcon v-if="loading" name="clock" :size="16" class="spin" />
+    <slot />
+  </NuxtLink>
   <button
+    v-else
     :type="type ?? 'button'"
     :class="['btn', `btn--${variant ?? 'primary'}`]"
     :disabled="disabled || loading"
@@ -22,6 +34,7 @@ defineProps<{
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   min-height: 44px; padding: 0 18px; border-radius: var(--r-control);
   font: 600 14px/1 Inter; cursor: pointer; border: 1px solid transparent;
+  text-decoration: none; box-sizing: border-box;
   transition: background 150ms ease-out, border-color 150ms ease-out, opacity 150ms ease-out;
 }
 .btn:disabled { opacity: .55; cursor: not-allowed; }

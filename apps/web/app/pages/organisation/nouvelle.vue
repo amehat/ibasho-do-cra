@@ -36,7 +36,7 @@ async function submit() {
       </FormField>
       <ActionBar>
         <BaseButton type="submit" :loading="loading">Créer</BaseButton>
-        <NuxtLink to="/"><BaseButton variant="secondary">Annuler</BaseButton></NuxtLink>
+        <BaseButton to="/" variant="secondary">Annuler</BaseButton>
       </ActionBar>
       <p v-if="message" class="msg-err">{{ message }}</p>
     </form>
