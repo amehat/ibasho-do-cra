@@ -7,8 +7,11 @@ const role = ref("prestataire");
 const message = ref("");
 const loading = ref(false);
 
+// Ne pas déclencher de requête tant qu'aucune organisation n'est sélectionnée
+// (évite GET /api/organisations//members — orgId vide, double slash).
 const { data: members, refresh } = await useFetch<Member[]>(() => `/api/organisations/${orgId.value}/members`, {
-  watch: [orgId]
+  watch: [orgId],
+  immediate: Boolean(orgId.value)
 });
 
 async function add() {
@@ -38,6 +41,11 @@ async function deactivate(userId: string) {
     <span class="eyebrow">Organisation</span>
     <h1 class="title">Membres</h1>
 
+    <p v-if="!orgId" class="notice card">
+      Sélectionnez une organisation depuis le tableau de bord pour gérer ses membres.
+    </p>
+
+    <template v-else>
     <form class="add card" @submit.prevent="add">
       <FormField label="Email du membre" for="email">
         <BaseInput id="email" v-model="email" type="email" placeholder="membre@exemple.fr" required />
@@ -64,6 +72,7 @@ async function deactivate(userId: string) {
         <BaseButton v-if="m.isActive" variant="ghost" @click="deactivate(m.userId)">Désactiver</BaseButton>
       </li>
     </ul>
+    </template>
   </div>
 </template>
 <style scoped>
@@ -76,5 +85,6 @@ async function deactivate(userId: string) {
 .email { font: 500 14px Inter; }
 .roles { display: flex; gap: 6px; flex-wrap: wrap; }
 .msg-err { color: var(--st-reject-ink); }
+.notice { padding: var(--s-5); color: var(--ink-2); }
 @media (max-width: 767px) { .add { grid-template-columns: 1fr; } }
 </style>

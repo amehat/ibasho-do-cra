@@ -24,14 +24,17 @@ export class GetMyProfile {
     @Inject(USER_REPOSITORY) private readonly users: UserRepository
   ) {}
 
-  async execute(userId: string): Promise<MyProfileView> {
+  // Renvoie null si l'identité ne correspond à aucun utilisateur (ex. compte supprimé
+  // alors qu'une session survit) -> le contrôleur force la ré-authentification (401).
+  async execute(userId: string): Promise<MyProfileView | null> {
     const [me] = await this.users.findByIds([userId]);
+    if (!me) return null;
     const active = await this.memberships.findActiveByUser(userId);
     const orgs = await this.orgs.findByIds(active.map((m) => m.orgId));
     const nomById = new Map(orgs.map((o) => [o.id, o.nom]));
     return {
       userId,
-      email: me ? me.email.value : null,
+      email: me.email.value,
       organisations: active
         .filter((m) => nomById.has(m.orgId))
         .map((m) => ({ id: m.orgId, nom: nomById.get(m.orgId)!, roles: m.roles }))

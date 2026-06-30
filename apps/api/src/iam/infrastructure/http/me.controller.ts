@@ -1,4 +1,4 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, UnauthorizedException } from "@nestjs/common";
 import { ApiOkResponse, ApiTags } from "@nestjs/swagger";
 import { CurrentUser } from "../../../shared-kernel/bff-auth/current-user.decorator";
 import { GetMyProfile } from "../../application/get-my-profile.use-case";
@@ -13,6 +13,8 @@ export class MeController {
   @Get()
   @ApiOkResponse({ type: MyProfileDto })
   async me(@CurrentUser() userId: string): Promise<MyProfileDto> {
-    return this.getMyProfile.execute(userId);
+    const profile = await this.getMyProfile.execute(userId);
+    if (!profile) throw new UnauthorizedException("Compte introuvable");
+    return profile;
   }
 }

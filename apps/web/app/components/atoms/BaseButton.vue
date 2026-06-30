@@ -13,7 +13,10 @@ defineProps<{
   <NuxtLink
     v-if="to"
     :to="to"
-    :class="['btn', `btn--${variant ?? 'primary'}`]"
+    :class="['btn', `btn--${variant ?? 'primary'}`, { 'is-disabled': disabled || loading }]"
+    :aria-disabled="disabled || loading || undefined"
+    :aria-busy="loading || undefined"
+    :tabindex="disabled || loading ? -1 : undefined"
   >
     <BaseIcon v-if="loading" name="clock" :size="16" class="spin" />
     <slot />
@@ -37,7 +40,8 @@ defineProps<{
   text-decoration: none; box-sizing: border-box;
   transition: background 150ms ease-out, border-color 150ms ease-out, opacity 150ms ease-out;
 }
-.btn:disabled { opacity: .55; cursor: not-allowed; }
+.btn:disabled, .btn.is-disabled { opacity: .55; cursor: not-allowed; }
+.btn.is-disabled { pointer-events: none; }
 .btn--primary { background: var(--accent); color: #fff; }
 .btn--primary:hover:not(:disabled) { background: var(--accent-strong); }
 .btn--primary:active:not(:disabled) { background: var(--accent-ink); }

@@ -35,11 +35,11 @@ async function logout() {
 </template>
 <style scoped>
 .topbar { height: 64px; display: flex; align-items: center; gap: var(--s-3); padding: 0 var(--s-5); background: var(--surface); border-bottom: 1px solid var(--line); }
-.burger { display: none; background: none; border: 0; padding: 8px; border-radius: var(--r-control); cursor: pointer; color: var(--ink); }
+.burger { display: none; background: none; border: 0; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; border-radius: var(--r-control); cursor: pointer; color: var(--ink); }
 .ctx { flex: 1; font: 600 15px Inter; color: var(--ink-2); }
 .right { display: flex; align-items: center; gap: var(--s-4); }
-.bell { background: none; border: 1px solid var(--line); border-radius: var(--r-control); padding: 8px; cursor: pointer; color: var(--ink-2); min-height: 40px; }
-.logout { background: none; border: 1px solid var(--line); border-radius: var(--r-control); padding: 8px; cursor: pointer; color: var(--ink-2); min-height: 40px; display: inline-flex; }
+.bell { background: none; border: 1px solid var(--line); border-radius: var(--r-control); cursor: pointer; color: var(--ink-2); min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; justify-content: center; }
+.logout { background: none; border: 1px solid var(--line); border-radius: var(--r-control); cursor: pointer; color: var(--ink-2); min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; justify-content: center; }
 .logout:hover { color: var(--st-reject); border-color: var(--st-reject); }
 .me { display: flex; align-items: center; gap: 10px; }
 .avatar { width: 34px; height: 34px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-ink); display: grid; place-items: center; }
