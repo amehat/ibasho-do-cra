@@ -1,5 +1,6 @@
 /** Garde-fous d'architecture hexagonale (AD-2, AD-3).
- *  Le domaine est pur ; les couches respectent la direction ; les contextes restent étanches. */
+ *  Le domaine est pur ; les couches respectent la direction ; les contextes restent étanches.
+ *  Les fichiers de test (*.spec.ts) sont exclus : ils croisent légitimement les couches. */
 module.exports = {
   forbidden: [
     {
@@ -24,5 +25,9 @@ module.exports = {
       to: { path: "^src/([^/]+)/(domain|application|infrastructure)/", pathNot: ["^src/$1/", "^src/shared-kernel/"] }
     }
   ],
-  options: { doNotFollow: { path: "node_modules" }, tsConfig: { fileName: "tsconfig.json" } }
+  options: {
+    doNotFollow: { path: "node_modules" },
+    exclude: { path: "\\.spec\\.ts$" },
+    tsConfig: { fileName: "tsconfig.json" }
+  }
 };

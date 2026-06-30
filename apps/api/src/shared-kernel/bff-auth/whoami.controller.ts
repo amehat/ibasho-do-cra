@@ -1,15 +1,17 @@
-import { Controller, Get, Req } from "@nestjs/common";
+import { Controller, Get, Req, UnauthorizedException } from "@nestjs/common";
 import { ApiOkResponse, ApiTags } from "@nestjs/swagger";
 import type { BffIdentity } from "./bff-identity";
 import { WhoamiResponseDto } from "./whoami.dto";
 
-// Gardé par la garde globale (AD-14). Démontre le chemin navigateur -> BFF -> API (AD-1).
+// Route authentifiée (garde globale par défaut = userId requis). Démontre BFF -> API (AD-1, AD-14).
 @ApiTags("iam")
 @Controller("whoami")
 export class WhoamiController {
   @Get()
   @ApiOkResponse({ type: WhoamiResponseDto })
   whoami(@Req() req: { identity?: BffIdentity }): WhoamiResponseDto {
-    return { userId: req.identity!.userId };
+    const userId = req.identity?.userId;
+    if (!userId) throw new UnauthorizedException();
+    return { userId };
   }
 }

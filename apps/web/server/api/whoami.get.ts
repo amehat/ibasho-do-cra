@@ -1,16 +1,18 @@
 import type { WhoamiResponse } from "@cra/contracts";
 import { signBffToken } from "../utils/bffToken";
+import { resolveIdentity } from "../utils/resolveIdentity";
+import { upstreamError } from "../utils/upstream";
 
-// Démontre le chemin signé BFF -> API gardée (AD-1, AD-14).
+// Chemin authentifié : session -> userId -> JWT d'identité -> API gardée (AD-1, AD-14).
 export default defineEventHandler(async (event): Promise<WhoamiResponse> => {
   const { apiBaseUrl, bffSharedSecret } = useRuntimeConfig();
-  const token = signBffToken("demo-user", bffSharedSecret);
+  const userId = await resolveIdentity(event);
+  if (!userId) throw createError({ statusCode: 401, statusMessage: "Non authentifié" });
   try {
     return await $fetch<WhoamiResponse>(`${apiBaseUrl}/whoami`, {
-      headers: { Authorization: `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${signBffToken(userId, bffSharedSecret)}` }
     });
-  } catch (err: unknown) {
-    const status = (err as { response?: { status?: number } })?.response?.status ?? 502;
-    throw createError({ statusCode: status, statusMessage: "Échec de l'appel API gardée" });
+  } catch (err) {
+    upstreamError(err);
   }
 });
