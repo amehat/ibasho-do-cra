@@ -18,6 +18,7 @@ export default defineConfig({
   user: process.env.DB_USER ?? "cra",
   password: process.env.DB_PASSWORD ?? "",
   connect: false,
+  forceUtcTimezone: true,
   pool: { acquireTimeoutMillis: 3000 },
   driverOptions: { connection: { connectTimeout: 2000 } },
   extensions: [Migrator],

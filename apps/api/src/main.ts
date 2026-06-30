@@ -11,8 +11,9 @@ import { AppModule } from "./app.module";
 async function bootstrap(): Promise<void> {
   const secret = process.env.BFF_SHARED_SECRET;
   const port = Number(process.env.PORT ?? 3001);
-  if (process.env.NODE_ENV === "production" && (!secret || secret === "change_me_dev_only")) {
-    throw new Error("BFF_SHARED_SECRET doit être défini et != valeur d'exemple en production (AD-14).");
+  const WEAK_SECRETS = new Set(["change_me_dev_only", "dev-bff-secret-change-in-prod"]);
+  if (process.env.NODE_ENV === "production" && (!secret || WEAK_SECRETS.has(secret) || secret.length < 16)) {
+    throw new Error("BFF_SHARED_SECRET doit être défini, != valeur d'exemple, et >= 16 caractères en production (AD-14).");
   }
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true })); // validation au bord (AD-13)

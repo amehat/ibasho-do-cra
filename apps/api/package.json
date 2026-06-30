@@ -10,7 +10,8 @@
     "test": "vitest run",
     "emit:openapi": "tsx scripts/emit-openapi.ts",
     "migration:up": "mikro-orm migration:up",
-    "migration:create": "mikro-orm migration:create"
+    "migration:create": "mikro-orm migration:create",
+    "test:e2e": "vitest run --config vitest.e2e.config.ts"
   },
   "dependencies": {
     "@mikro-orm/cli": "^6.6.0",
@@ -36,11 +37,16 @@
   "devDependencies": {
     "@cra/config": "workspace:*",
     "@nestjs/cli": "^11.0.23",
+    "@nestjs/testing": "^11.1.27",
+    "@swc/core": "^1.15.43",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.0.0",
+    "@types/supertest": "^6.0.3",
     "@types/uuid": "^11.0.0",
+    "supertest": "^7.2.2",
     "tsx": "^4.19.0",
     "typescript": "^5.6.0",
+    "unplugin-swc": "^1.5.9",
     "vitest": "^2.1.0"
   },
   "mikro-orm": {

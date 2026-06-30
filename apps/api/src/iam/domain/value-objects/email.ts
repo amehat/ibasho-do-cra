@@ -6,7 +6,7 @@ export class Email {
 
   static create(raw: string): Email {
     const normalized = raw.trim().toLowerCase();
-    if (!EMAIL_RE.test(normalized)) {
+    if (normalized.length > 254 || !EMAIL_RE.test(normalized)) {
       throw new InvalidEmailError(raw);
     }
     return new Email(normalized);

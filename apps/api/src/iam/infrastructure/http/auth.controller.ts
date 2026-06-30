@@ -2,7 +2,8 @@ import {
   BadRequestException, Body, ConflictException, Controller, Get, Headers, HttpCode,
   Post, UnauthorizedException, UseGuards
 } from "@nestjs/common";
-import { ApiCreatedResponse, ApiOkResponse, ApiTags } from "@nestjs/swagger";
+import { ApiBody, ApiCreatedResponse, ApiOkResponse, ApiTags } from "@nestjs/swagger";
+import { UniqueConstraintViolationException } from "@mikro-orm/core";
 import { BffOnly } from "../../../shared-kernel/bff-auth/bff-only.decorator";
 import { RegisterUser } from "../../application/register-user.use-case";
 import { AuthenticateCredentials } from "../../application/authenticate-credentials.use-case";
@@ -30,12 +31,17 @@ export class AuthController {
   ) {}
 
   @Post("register")
+  @UseGuards(LoginThrottlerGuard)
+  @ApiBody({ type: RegisterDto })
   @ApiCreatedResponse({ type: UserIdResponseDto })
   async register(@Body() dto: RegisterDto): Promise<UserIdResponseDto> {
     try {
       return await this.registerUser.execute(dto.email, dto.password);
     } catch (e) {
-      if (e instanceof EmailAlreadyUsedError) throw new ConflictException("Email déjà utilisé");
+      // Email dupliqué : détecté en amont (EmailAlreadyUsedError) OU en concurrence (violation d'unicité).
+      if (e instanceof EmailAlreadyUsedError || e instanceof UniqueConstraintViolationException) {
+        throw new ConflictException("Email déjà utilisé");
+      }
       if (e instanceof InvalidEmailError) throw new BadRequestException("Email invalide");
       throw e;
     }
@@ -44,6 +50,7 @@ export class AuthController {
   @Post("login")
   @UseGuards(LoginThrottlerGuard)
   @HttpCode(200)
+  @ApiBody({ type: LoginDto })
   @ApiOkResponse({ type: LoginResponseDto })
   async login(@Body() dto: LoginDto): Promise<LoginResponseDto> {
     try {

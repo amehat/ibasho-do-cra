@@ -10,6 +10,7 @@ function setup() {
   const u = User.register("u1", Email.create("a@example.com"), PasswordHash.fromHashed("h:bonmdp"));
   const users: UserRepository = {
     async findByEmail(email) { return email.value === "a@example.com" ? u : null; },
+    async findById(id) { return id === "u1" ? u : null; },
     async save() {}
   };
   const hasher = { hash: async (p: string) => `h:${p}`, verify: async (h: string, p: string) => h === `h:${p}` };

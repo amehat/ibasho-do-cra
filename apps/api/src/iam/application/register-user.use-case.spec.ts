@@ -9,6 +9,7 @@ function fakes() {
   const store = new Map<string, User>();
   const users: UserRepository = {
     async findByEmail(email) { return store.get(email.value) ?? null; },
+    async findById(id) { for (const u of store.values()) if (u.id === id) return u; return null; },
     async save(user) { store.set(user.email.value, user); }
   };
   const hasher = { hash: async (p: string) => `h:${p}`, verify: async (h: string, p: string) => h === `h:${p}` };

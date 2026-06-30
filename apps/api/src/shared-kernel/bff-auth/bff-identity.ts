@@ -8,7 +8,7 @@ export interface BffIdentity {
 }
 
 export function verifyBffToken(token: string, secret: string): BffIdentity {
-  const payload = jwt.verify(token, secret, { algorithms: ["HS256"] });
+  const payload = jwt.verify(token, secret, { algorithms: ["HS256"], clockTolerance: 10 });
   if (typeof payload === "string" || typeof payload.sub !== "string") {
     throw new Error("JWT BFF invalide : sub (userId) manquant");
   }
@@ -16,7 +16,7 @@ export function verifyBffToken(token: string, secret: string): BffIdentity {
 }
 
 export function verifyBffOrigin(token: string, secret: string): BffIdentity {
-  const payload = jwt.verify(token, secret, { algorithms: ["HS256"] });
+  const payload = jwt.verify(token, secret, { algorithms: ["HS256"], clockTolerance: 10 });
   if (typeof payload === "string") throw new Error("JWT BFF invalide");
   return { userId: typeof payload.sub === "string" ? payload.sub : undefined };
 }

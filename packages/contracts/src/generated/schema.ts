@@ -114,8 +114,16 @@ export interface components {
         WhoamiResponseDto: {
             userId: string;
         };
+        RegisterDto: {
+            email: string;
+            password: string;
+        };
         UserIdResponseDto: {
             userId: string;
+        };
+        LoginDto: {
+            email: string;
+            password: string;
         };
         LoginResponseDto: {
             token: string;
@@ -180,7 +188,11 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RegisterDto"];
+            };
+        };
         responses: {
             201: {
                 headers: {
@@ -199,7 +211,11 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LoginDto"];
+            };
+        };
         responses: {
             200: {
                 headers: {

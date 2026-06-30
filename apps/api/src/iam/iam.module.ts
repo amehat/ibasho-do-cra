@@ -26,7 +26,10 @@ import { TOKEN_GENERATOR } from "./domain/ports/token-generator.port";
 @Module({
   imports: [
     MikroOrmModule.forFeature([UserOrmEntity, SessionOrmEntity]),
-    ThrottlerModule.forRoot([{ ttl: 60000, limit: 5 }]) // login: 5 tentatives / min / email
+    ThrottlerModule.forRoot([
+      { name: "login-email", ttl: 60000, limit: 5 },   // 5/min par compte
+      { name: "login-global", ttl: 60000, limit: 30 } // plafond /min par IP (anti-spraying)
+    ])
   ],
   controllers: [AuthController],
   providers: [
