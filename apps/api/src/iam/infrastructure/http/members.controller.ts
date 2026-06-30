@@ -2,7 +2,8 @@ import {
   BadRequestException, Body, ConflictException, Controller, Delete, ForbiddenException, Get,
   HttpCode, NotFoundException, Param, Patch, Post
 } from "@nestjs/common";
-import { ApiBody, ApiOkResponse, ApiTags } from "@nestjs/swagger";
+import { ApiBody, ApiCreatedResponse, ApiOkResponse, ApiTags } from "@nestjs/swagger";
+import { UniqueConstraintViolationException } from "@mikro-orm/core";
 import { CurrentUser } from "../../../shared-kernel/bff-auth/current-user.decorator";
 import { AddOrUpdateMember } from "../../application/add-or-update-member.use-case";
 import { ChangeMemberRoles } from "../../application/change-member-roles.use-case";
@@ -20,6 +21,7 @@ import { AddMemberDto, AddMemberResponseDto, ChangeRolesDto, MemberDto } from ".
 function mapError(e: unknown): never {
   if (e instanceof ForbiddenMembershipError) throw new ForbiddenException(e.message);
   if (e instanceof LastOwnerError) throw new ConflictException(e.message);
+  if (e instanceof UniqueConstraintViolationException) throw new ConflictException("Conflit appartenance (deja membre)");
   if (e instanceof OrganisationNotFoundError || e instanceof UserNotFoundError || e instanceof MemberNotFoundError)
     throw new NotFoundException(e instanceof Error ? e.message : "Introuvable");
   if (e instanceof InvalidRolesError || e instanceof InvalidEmailError) throw new BadRequestException(e.message);
@@ -49,7 +51,7 @@ export class MembersController {
 
   @Post()
   @ApiBody({ type: AddMemberDto })
-  @ApiOkResponse({ type: AddMemberResponseDto })
+  @ApiCreatedResponse({ type: AddMemberResponseDto })
   async addMember(
     @CurrentUser() actorId: string,
     @Param("orgId") orgId: string,

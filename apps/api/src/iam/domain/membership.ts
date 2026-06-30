@@ -23,13 +23,13 @@ export class Membership {
   }
 
   setRoles(roles: Role[]): void {
-    this.roles = roles;
+    this.roles = [...new Set(roles)]; // dédoublonne (FR4 : ensemble de rôles)
   }
 
   // Réactive une membership désactivée (AD-11) en remplaçant ses rôles — sert à la ré-affectation idempotente.
   reactivate(roles: Role[]): void {
     this.isActive = true;
-    this.roles = roles;
+    this.roles = [...new Set(roles)];
   }
 
   deactivate(): void {

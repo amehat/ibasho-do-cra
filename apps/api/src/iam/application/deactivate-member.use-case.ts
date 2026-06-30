@@ -14,15 +14,12 @@ export class DeactivateMember {
 
   async execute(actorId: string, orgId: string, memberUserId: string): Promise<void> {
     await this.policy.requireActiveOwner(actorId, orgId);
-    const membership = await this.memberships.findByOrgAndUser(orgId, memberUserId);
-    if (!membership || !membership.isActive) throw new MemberNotFoundError();
-
-    // Refuse la désactivation du dernier propriétaire actif (AD-23).
-    if (membership.hasRole(Role.OWNER)) {
-      const owners = await this.memberships.findActiveOwnersByOrg(orgId);
-      assertNotLastActiveOwner(true, owners.length);
-    }
-    membership.deactivate(); // AD-11 : jamais de suppression
-    await this.memberships.save(membership);
+    // Décompte + désactivation atomiques (verrou) -> pas de course sur le dernier propriétaire (AD-23).
+    await this.memberships.withOrgOwnerGuard(orgId, memberUserId, ({ target, activeOwnerCount }) => {
+      if (!target || !target.isActive) throw new MemberNotFoundError();
+      if (target.hasRole(Role.OWNER)) assertNotLastActiveOwner(true, activeOwnerCount);
+      target.deactivate(); // AD-11 : jamais de suppression
+      return target;
+    });
   }
 }

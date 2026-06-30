@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { EntityManager } from "@mikro-orm/mariadb";
+import { LockMode } from "@mikro-orm/core";
 import { Membership } from "../../domain/membership";
 import { Role } from "../../domain/role";
 import type { MembershipRepository } from "../../domain/ports/membership-repository.port";
@@ -42,5 +43,41 @@ export class MikroMembershipRepository implements MembershipRepository {
     row.roles = membership.roles;
     row.isActive = membership.isActive;
     await em.persistAndFlush(row);
+  }
+  async withOrgOwnerGuard(
+    orgId: string,
+    targetUserId: string,
+    decide: (ctx: { target: Membership | null; activeOwnerCount: number }) => Membership | null
+  ): Promise<void> {
+    await this.em.fork().transactional(async (em) => {
+      // Verrou pessimiste sur les appartenances ACTIVES de l'org (sérialise les opérations owner).
+      const active = await em.find(
+        MembershipOrmEntity,
+        { orgId, isActive: true },
+        { lockMode: LockMode.PESSIMISTIC_WRITE }
+      );
+      const activeOwnerCount = active.filter((r) => r.roles.includes(Role.OWNER)).length;
+
+      let targetRow = active.find((r) => r.userId === targetUserId) ?? null;
+      if (!targetRow) {
+        targetRow = await em.findOne(
+          MembershipOrmEntity,
+          { orgId, userId: targetUserId },
+          { lockMode: LockMode.PESSIMISTIC_WRITE }
+        );
+      }
+      const target = targetRow ? this.toDomain(targetRow) : null;
+
+      const result = decide({ target, activeOwnerCount }); // lève en cas de violation -> rollback
+      if (result) {
+        const row = targetRow ?? new MembershipOrmEntity();
+        row.id = result.id;
+        row.orgId = result.orgId;
+        row.userId = result.userId;
+        row.roles = result.roles;
+        row.isActive = result.isActive;
+        await em.persistAndFlush(row);
+      }
+    });
   }
 }

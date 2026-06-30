@@ -3,6 +3,7 @@ import { Email } from "../domain/value-objects/email";
 import { Membership } from "../domain/membership";
 import { Role } from "../domain/role";
 import { assertRolesValidForOrgType } from "../domain/value-objects/role-policy";
+import { assertNotLastActiveOwner } from "../domain/membership-rules";
 import { ORGANISATION_REPOSITORY, type OrganisationRepository } from "../domain/ports/organisation-repository.port";
 import { MEMBERSHIP_REPOSITORY, type MembershipRepository } from "../domain/ports/membership-repository.port";
 import { USER_REPOSITORY, type UserRepository } from "../domain/ports/user-repository.port";
@@ -30,9 +31,20 @@ export class AddOrUpdateMember {
     if (!user) throw new UserNotFoundError();
 
     const existing = await this.memberships.findByOrgAndUser(orgId, user.id);
-    const membership = existing ?? new Membership(this.ids.newId(), orgId, user.id, roles, true);
-    if (existing) existing.reactivate(roles); // idempotent : réactive sans doublon (AC5)
-    await this.memberships.save(membership);
-    return { userId: user.id, roles: membership.roles };
+    if (existing) {
+      // Chemin gardé/atomique : empêche de retirer owner au dernier propriétaire actif (AD-23) via le POST.
+      await this.memberships.withOrgOwnerGuard(orgId, user.id, ({ target, activeOwnerCount }) => {
+        if (!target) return null;
+        if (target.isActive && target.hasRole(Role.OWNER) && !roles.includes(Role.OWNER)) {
+          assertNotLastActiveOwner(true, activeOwnerCount);
+        }
+        target.reactivate(roles); // réactive (ou met à jour) sans doublon, rôles dédoublonnés
+        return target;
+      });
+    } else {
+      // Nouveau membre : aucun retrait de propriétaire possible. (Course d'insertion -> 409 mappé au contrôleur.)
+      await this.memberships.save(new Membership(this.ids.newId(), orgId, user.id, roles, true));
+    }
+    return { userId: user.id, roles: [...new Set(roles)] };
   }
 }

@@ -21,15 +21,14 @@ export class ChangeMemberRoles {
     if (!org) throw new OrganisationNotFoundError();
     assertRolesValidForOrgType(roles, org.type.value);
 
-    const membership = await this.memberships.findByOrgAndUser(orgId, memberUserId);
-    if (!membership || !membership.isActive) throw new MemberNotFoundError();
-
-    // Refuse de retirer owner au dernier propriétaire actif (AD-23).
-    if (membership.hasRole(Role.OWNER) && !roles.includes(Role.OWNER)) {
-      const owners = await this.memberships.findActiveOwnersByOrg(orgId);
-      assertNotLastActiveOwner(true, owners.length);
-    }
-    membership.setRoles(roles);
-    await this.memberships.save(membership);
+    await this.memberships.withOrgOwnerGuard(orgId, memberUserId, ({ target, activeOwnerCount }) => {
+      if (!target || !target.isActive) throw new MemberNotFoundError();
+      // Refuse de retirer owner au dernier propriétaire actif (AD-23), de façon atomique.
+      if (target.hasRole(Role.OWNER) && !roles.includes(Role.OWNER)) {
+        assertNotLastActiveOwner(true, activeOwnerCount);
+      }
+      target.setRoles(roles);
+      return target;
+    });
   }
 }

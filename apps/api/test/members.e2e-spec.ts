@@ -94,6 +94,11 @@ describe("Members (e2e)", () => {
     expect(bEntries[0].isActive).toBe(true);
   });
 
+  it("POST ne peut pas retirer owner au dernier propriétaire (AD-23) -> 409", async () => {
+    await request(srv()).post(`/organisations/${orgId}/members`).set("Authorization", identity(userA))
+      .send({ email: EMAIL_A, roles: ["prestataire"] }).expect(409);
+  });
+
   it("désactivation du dernier propriétaire -> 409 (AD-23)", async () => {
     await request(srv()).delete(`/organisations/${orgId}/members/${userA}`).set("Authorization", identity(userA)).expect(409);
   });
