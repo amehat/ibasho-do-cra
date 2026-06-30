@@ -1,0 +1,101 @@
+# generated: 2026-06-29
+# last_updated: 2026-06-29
+# project: Gestionnaire de CRA
+# project_key: NOKEY
+# tracking_system: file-system
+# story_location: {output_folder}/implementation-artifacts
+
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic not yet started
+#   - in-progress: Epic actively being worked on
+#   - done: All stories in epic completed
+#
+# Epic Status Transitions:
+#   - backlog → in-progress: Automatically when first story is created (via create-story)
+#   - in-progress → done: Manually when all stories reach 'done' status
+#
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - ready-for-dev: Story file created in stories folder
+#   - in-progress: Developer actively working on implementation
+#   - review: Ready for code review (via Dev's code-review workflow)
+#   - done: Story completed
+#
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - done: Retrospective has been completed
+#
+# Action Item Status:
+#   - open: Committed during a retrospective, not yet addressed
+#   - in-progress: Actively being worked on
+#   - done: Completed
+#
+# WORKFLOW NOTES:
+# ===============
+# - Epic transitions to 'in-progress' automatically when first story is created
+# - Stories can be worked in parallel if team capacity allows
+# - Developer typically creates next story after previous one is 'done' to incorporate learnings
+# - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
+# - Retrospective appends its action items to action_items; sprint-status surfaces open ones
+
+generated: 2026-06-29
+last_updated: 2026-06-30T05:20:00
+project: Gestionnaire de CRA
+project_key: NOKEY
+tracking_system: file-system
+story_location: "{output_folder}/implementation-artifacts"
+
+development_status:
+  # ----- Epic 1: Fondations, comptes & organisations -----
+  epic-1: in-progress
+  1-1-scaffold-du-monorepo-socle-deployable: done
+  1-2-inscription-connexion-par-email-mot-de-passe: done
+  1-3-creation-d-organisation-avec-proprietaire: done
+  1-4-gestion-des-membres-roles: done
+  1-5-app-shell-cloisonnement-par-role: backlog
+  epic-1-retrospective: optional
+
+  # ----- Epic 2: Projets, TJM & entrée du client -----
+  epic-2: backlog
+  2-1-creation-d-un-projet: backlog
+  2-2-tjm-bornes-non-chevauchants: backlog
+  2-3-parametrage-du-projet-modifiable: backlog
+  2-4-designation-des-acteurs-invitations-qualifiees: backlog
+  2-5-acceptation-d-invitation-compte-rattachement: backlog
+  epic-2-retrospective: optional
+
+  # ----- Epic 3: Saisie & soumission du CRA -----
+  epic-3: backlog
+  3-1-grille-calendrier-de-saisie: backlog
+  3-2-auto-save-du-brouillon: backlog
+  3-3-calcul-du-montant-en-continu: backlog
+  3-4-soumission-du-cra-notification-du-valideur: backlog
+  epic-3-retrospective: optional
+
+  # ----- Epic 4: Validation, signature & verrouillage -----
+  epic-4: backlog
+  4-1-ecran-de-validation-en-lecture-seule: backlog
+  4-2-renvoi-en-correction-avec-commentaire-obligatoire: backlog
+  4-3-validation-signature-snapshot-verrouillage-immuable: backlog
+  4-4-generation-du-pdf-du-cra-valide: backlog
+  4-5-journal-d-audit-des-validations: backlog
+  epic-4-retrospective: optional
+
+  # ----- Epic 5: Facture & transmission -----
+  epic-5: backlog
+  5-1-depot-de-facture-lie-a-un-cra-valide: backlog
+  5-2-transmission-au-payeur: backlog
+  5-3-remplacement-de-facture-tant-que-non-regle: backlog
+  5-4-consultation-par-le-payeur: backlog
+  epic-5-retrospective: optional
+
+  # ----- Epic 6: Suivi du règlement & tableau de bord -----
+  epic-6: backlog
+  6-1-marquer-regle-payeur: backlog
+  6-2-confirmer-la-reception-du-reglement-prestataire: backlog
+  6-3-visibilite-de-l-avancement-du-reglement: backlog
+  6-4-tableau-de-bord-vue-rapide: backlog
+  6-5-polish-accessibilite-responsive: backlog
+  epic-6-retrospective: optional

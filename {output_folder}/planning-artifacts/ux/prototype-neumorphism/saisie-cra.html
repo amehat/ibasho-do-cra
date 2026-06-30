@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Saisie du CRA — Mai 2026</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Aller au contenu</a>
+  <div class="app" id="app">
+    <div class="scrim" data-close-nav></div>
+
+    <aside class="sidebar" aria-label="Navigation principale">
+      <a class="brand" href="index.html">
+        <span class="mark" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m9 16 2 2 4-4"/></svg>
+        </span>
+        <span class="name">CRA<small>Espace prestataire</small></span>
+      </a>
+      <nav class="nav" aria-label="Sections">
+        <a href="tableau-de-bord.html">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+          Tableau de bord
+        </a>
+        <a href="#">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+          Projets
+        </a>
+        <a href="saisie-cra.html" aria-current="page">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M9 14h.01M15 14h.01"/></svg>
+          CRA
+        </a>
+        <a href="#">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg>
+          Factures
+        </a>
+        <a href="#">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg>
+          Reglements
+        </a>
+      </nav>
+      <div class="side-foot">
+        <div class="user-chip">
+          <span class="avatar" aria-hidden="true">AM</span>
+          <span class="who">Arnaud Mehat<small>Prestataire</small></span>
+        </div>
+      </div>
+    </aside>
+
+    <div class="main">
+      <header class="topbar">
+        <button class="hamburger" type="button" aria-label="Ouvrir le menu" aria-controls="app" aria-expanded="false" data-toggle-nav>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+        <p class="crumbs">CRA / <strong>Mai 2026</strong></p>
+        <span class="spacer"></span>
+        <span class="pill draft"><span class="pdot" aria-hidden="true"></span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
+          Brouillon</span>
+      </header>
+
+      <main class="content" id="main">
+        <div class="page-head">
+          <h1>Saisie du CRA</h1>
+          <p>Renseignez vos journees au fil du mois. Tout est enregistre automatiquement.</p>
+        </div>
+
+        <!-- Contexte -->
+        <section class="card" aria-label="Contexte de la mission" style="margin-bottom:22px;">
+          <div class="context">
+            <div class="field"><span class="k">Projet</span><span class="v">Refonte SI</span></div>
+            <div class="field"><span class="k">Client</span><span class="v">Groupe Vauban</span></div>
+            <div class="field"><span class="k">Prestataire</span><span class="v">Arnaud Mehat</span></div>
+            <div class="field"><span class="k">Periode</span><span class="v">Mai 2026</span></div>
+            <div class="field"><span class="k">TJM</span><span class="v num">550 EUR</span></div>
+          </div>
+        </section>
+
+        <!-- KPI bar -->
+        <section class="kpi-grid" aria-label="Synthese du mois">
+          <div class="kpi">
+            <div class="kpi-top"><span class="kpi-ic" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="kpi-label">Jours travailles</span></div>
+            <div class="kpi-val num">18,5 <small>j</small></div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-top"><span class="kpi-ic" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v18"/></svg></span><span class="kpi-label">Demi-journees</span></div>
+            <div class="kpi-val num">1</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-top"><span class="kpi-ic" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V4M4 4h13l-2 4 2 4H4"/></svg></span><span class="kpi-label">Feries travailles</span></div>
+            <div class="kpi-val num">2</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-top"><span class="kpi-ic" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span><span class="kpi-label">Montant</span></div>
+            <div class="kpi-val num">10 175 <small>EUR</small></div>
+          </div>
+        </section>
+
+        <div class="two-col">
+          <!-- Calendrier -->
+          <section class="card" aria-labelledby="cal-title">
+            <div class="cal-toolbar">
+              <h2 class="month" id="cal-title">Mai 2026</h2>
+              <span class="grow"></span>
+              <span class="autosave" role="status">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                Enregistre
+              </span>
+            </div>
+
+            <div class="cal" role="grid" aria-label="Calendrier de saisie de mai 2026">
+              <span class="dow" aria-hidden="true">Lun</span>
+              <span class="dow" aria-hidden="true">Mar</span>
+              <span class="dow" aria-hidden="true">Mer</span>
+              <span class="dow" aria-hidden="true">Jeu</span>
+              <span class="dow" aria-hidden="true">Ven</span>
+              <span class="dow we" aria-hidden="true">Sam</span>
+              <span class="dow we" aria-hidden="true">Dim</span>
+
+              <!-- Semaine 1 -->
+              <div class="day empty" aria-hidden="true"></div>
+              <div class="day empty" aria-hidden="true"></div>
+              <div class="day empty" aria-hidden="true"></div>
+              <div class="day empty" aria-hidden="true"></div>
+              <button type="button" class="day editable holiday" aria-label="Vendredi 1 mai, Fete du Travail, ferie chome">
+                <span class="dnum num">1</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V4M4 4h13l-2 4 2 4H4"/></svg><span>Ferie chome</span></span>
+              </button>
+              <button type="button" class="day editable weekend" aria-label="Samedi 2 mai, week-end">
+                <span class="dnum num">2</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg><span>Week-end</span></span>
+              </button>
+              <button type="button" class="day editable weekend" aria-label="Dimanche 3 mai, week-end">
+                <span class="dnum num">3</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg><span>Week-end</span></span>
+              </button>
+
+              <!-- Semaine 2 -->
+              <button type="button" class="day editable worked" aria-label="Lundi 4 mai, travaille, 1 jour">
+                <span class="dnum num">4</span><span class="dval num">1 j</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Travaille</span></span>
+              </button>
+              <button type="button" class="day editable worked" aria-label="Mardi 5 mai, travaille, 1 jour">
+                <span class="dnum num">5</span><span class="dval num">1 j</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Travaille</span></span>
+              </button>
+              <button type="button" class="day editable worked" aria-label="Mercredi 6 mai, travaille, 1 jour">
+                <span class="dnum num">6</span><span class="dval num">1 j</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Travaille</span></span>
+              </button>
+              <button type="button" class="day editable worked" aria-label="Jeudi 7 mai, travaille, 1 jour">
+                <span class="dnum num">7</span><span class="dval num">1 j</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Travaille</span></span>
+              </button>
+              <button type="button" class="day editable holiday-worked" aria-label="Vendredi 8 mai, Victoire 1945, ferie travaille, 1 jour">
+                <span class="dnum num">8</span><span class="dval num">1 j</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V4M4 4h13l-2 4 2 4H4"/></svg><span>Ferie travaille</span></span>
+              </button>
+              <button type="button" class="day editable weekend" aria-label="Samedi 9 mai, week-end">
+                <span class="dnum num">9</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg><span>Week-end</span></span>
+              </button>
+              <button type="button" class="day editable weekend" aria-label="Dimanche 10 mai, week-end">
+                <span class="dnum num">10</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg><span>Week-end</span></span>
+              </button>
+
+              <!-- Semaine 3 -->
+              <button type="button" class="day editable worked" aria-label="Lundi 11 mai, travaille, 1 jour">
+                <span class="dnum num">11</span><span class="dval num">1 j</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Travaille</span></span>
+              </button>
+              <button type="button" class="day editable worked" aria-label="Mardi 12 mai, travaille, 1 jour">
+                <span class="dnum num">12</span><span class="dval num">1 j</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Travaille</span></span>
+              </button>
+              <button type="button" class="day editable half" aria-label="Mercredi 13 mai, demi-journee, 0,5 jour">
+                <span class="dnum num">13</span><span class="dval num">0,5 j</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18"/></svg><span>Demi-journee</span></span>
+              </button>
+              <button type="button" class="day editable holiday" aria-label="Jeudi 14 mai, Ascension, ferie chome">
+                <span class="dnum num">14</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V4M4 4h13l-2 4 2 4H4"/></svg><span>Ferie chome</span></span>
+              </button>
+              <button type="button" class="day editable worked" aria-label="Vendredi 15 mai, travaille, 1 jour">
+                <span class="dnum num">15</span><span class="dval num">1 j</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Travaille</span></span>
+              </button>
+              <button type="button" class="day editable weekend" aria-label="Samedi 16 mai, week-end">
+                <span class="dnum num">16</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg><span>Week-end</span></span>
+              </button>
+              <button type="button" class="day editable weekend" aria-label="Dimanche 17 mai, week-end">
+                <span class="dnum num">17</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg><span>Week-end</span></span>
+              </button>
+
+              <!-- Semaine 4 -->
+              <button type="button" class="day editable worked" aria-label="Lundi 18 mai, travaille, 1 jour">
+                <span class="dnum num">18</span><span class="dval num">1 j</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Travaille</span></span>
+              </button>
+              <button type="button" class="day editable worked" aria-label="Mardi 19 mai, travaille, 1 jour">
+                <span class="dnum num">19</span><span class="dval num">1 j</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Travaille</span></span>
+              </button>
+              <button type="button" class="day editable worked" aria-label="Mercredi 20 mai, travaille, 1 jour">
+                <span class="dnum num">20</span><span class="dval num">1 j</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Travaille</span></span>
+              </button>
+              <button type="button" class="day editable worked" aria-label="Jeudi 21 mai, travaille, 1 jour">
+                <span class="dnum num">21</span><span class="dval num">1 j</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Travaille</span></span>
+              </button>
+              <button type="button" class="day editable worked" aria-label="Vendredi 22 mai, travaille, 1 jour">
+                <span class="dnum num">22</span><span class="dval num">1 j</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Travaille</span></span>
+              </button>
+              <button type="button" class="day editable weekend" aria-label="Samedi 23 mai, week-end">
+                <span class="dnum num">23</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg><span>Week-end</span></span>
+              </button>
+              <button type="button" class="day editable weekend" aria-label="Dimanche 24 mai, week-end">
+                <span class="dnum num">24</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg><span>Week-end</span></span>
+              </button>
+
+              <!-- Semaine 5 -->
+              <button type="button" class="day editable holiday-worked" aria-label="Lundi 25 mai, Lundi de Pentecote, ferie travaille, 1 jour">
+                <span class="dnum num">25</span><span class="dval num">1 j</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V4M4 4h13l-2 4 2 4H4"/></svg><span>Ferie travaille</span></span>
+              </button>
+              <button type="button" class="day editable worked" aria-label="Mardi 26 mai, travaille, 1 jour">
+                <span class="dnum num">26</span><span class="dval num">1 j</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Travaille</span></span>
+              </button>
+              <button type="button" class="day editable worked" aria-label="Mercredi 27 mai, travaille, 1 jour">
+                <span class="dnum num">27</span><span class="dval num">1 j</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Travaille</span></span>
+              </button>
+              <button type="button" class="day editable worked" aria-label="Jeudi 28 mai, travaille, 1 jour">
+                <span class="dnum num">28</span><span class="dval num">1 j</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Travaille</span></span>
+              </button>
+              <button type="button" class="day editable worked" aria-label="Vendredi 29 mai, travaille, 1 jour">
+                <span class="dnum num">29</span><span class="dval num">1 j</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Travaille</span></span>
+              </button>
+              <button type="button" class="day editable weekend" aria-label="Samedi 30 mai, week-end">
+                <span class="dnum num">30</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg><span>Week-end</span></span>
+              </button>
+              <button type="button" class="day editable weekend" aria-label="Dimanche 31 mai, week-end">
+                <span class="dnum num">31</span>
+                <span class="dstate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg><span>Week-end</span></span>
+              </button>
+            </div>
+
+            <!-- Legende -->
+            <div class="legend" aria-label="Legende des etats">
+              <span class="lg"><span class="swatch s-worked" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Travaille</span>
+              <span class="lg"><span class="swatch s-worked" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 4v16"/></svg></span>Demi-journee</span>
+              <span class="lg"><span class="swatch s-off" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14"/></svg></span>Non travaille</span>
+              <span class="lg"><span class="swatch s-conge" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 13h20M6 13V7a2 2 0 0 1 2-2h3v8M17 9h2a2 2 0 0 1 2 2v6"/></svg></span>Conge</span>
+              <span class="lg"><span class="swatch s-we" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14"/></svg></span>Week-end</span>
+              <span class="lg"><span class="swatch s-hol" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V4M4 4h13l-2 4 2 4H4"/></svg></span>Ferie chome</span>
+              <span class="lg"><span class="swatch s-hw" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V4M4 4h13l-2 4 2 4H4"/></svg></span>Ferie travaille</span>
+            </div>
+          </section>
+
+          <!-- Synthese / actions -->
+          <aside class="aside-sticky">
+            <section class="card" aria-label="Synthese a soumettre">
+              <h2 class="section-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Synthese</h2>
+              <div class="summary-row"><span class="s-k">Jours travailles</span><span class="s-v num">18 j</span></div>
+              <div class="summary-row"><span class="s-k">Demi-journees</span><span class="s-v num">1 (0,5 j)</span></div>
+              <div class="summary-row"><span class="s-k">Dont feries travailles</span><span class="s-v num">2 j</span></div>
+              <div class="summary-row"><span class="s-k">Total facturable</span><span class="s-v num">18,5 j</span></div>
+              <div class="summary-row"><span class="s-k">TJM</span><span class="s-v num">550 EUR</span></div>
+              <div class="summary-row summary-total"><span class="s-k">Montant du CRA</span><span class="s-v num">10 175 EUR</span></div>
+
+              <div style="margin-top:18px;">
+                <button type="button" class="btn primary block">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg>
+                  Soumettre le CRA
+                </button>
+              </div>
+
+              <div class="notice">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                <span>Une confirmation vous sera demandee. Une fois soumis, Groupe Vauban est
+                notifie et le CRA reste editable tant qu'il n'est pas valide.</span>
+              </div>
+            </section>
+          </aside>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var app = document.getElementById('app');
+      var toggle = document.querySelector('[data-toggle-nav]');
+      function setOpen(open) {
+        app.classList.toggle('nav-open', open);
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+      }
+      toggle.addEventListener('click', function () { setOpen(!app.classList.contains('nav-open')); });
+      document.querySelectorAll('[data-close-nav]').forEach(function (el) {
+        el.addEventListener('click', function () { setOpen(false); });
+      });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
+    })();
+  </script>
+</body>
+</html>

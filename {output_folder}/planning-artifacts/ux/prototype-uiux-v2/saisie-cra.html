@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Saisie du CRA - Mai 2026 - Suivi CRA</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="index.html" aria-label="Suivi CRA, accueil">
+      <span class="brand__mark" aria-hidden="true">
+        <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m9 16 2 2 4-4"/></svg>
+      </span>
+      <span>
+        <span class="brand__name">Suivi CRA</span><br>
+        <span class="brand__sub">Espace prestataire</span>
+      </span>
+    </a>
+    <nav class="nav" aria-label="Navigation principale">
+      <span class="nav__label">Pilotage</span>
+      <a class="nav__item" href="dashboard.html">
+        <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+        Tableau de bord
+      </a>
+      <a class="nav__item" href="#">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
+        Projets
+      </a>
+      <a class="nav__item nav__item--active" href="saisie-cra.html" aria-current="page">
+        <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        CRA
+      </a>
+      <span class="nav__label">Facturation</span>
+      <a class="nav__item" href="#">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1V2l-2 1-2-1-2 1-2-1-2 1-2-1Z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>
+        Factures
+      </a>
+      <a class="nav__item" href="#">
+        <svg class="icon" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 12h.01M18 12h.01"/></svg>
+        Règlements
+      </a>
+    </nav>
+    <div class="sidebar__foot">
+      <div class="userchip">
+        <span class="avatar" aria-hidden="true">AM</span>
+        <span>
+          <span class="userchip__name">Arnaud Méhat</span><br>
+          <span class="userchip__role">Prestataire indépendant</span>
+        </span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="main">
+    <header class="topbar">
+      <button class="iconbtn menu-toggle" id="menuToggle" aria-label="Ouvrir le menu" style="display:none">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <nav class="crumbs" aria-label="Fil d'ariane">
+        <a href="dashboard.html">CRA</a><span class="sep">/</span>
+        <span>Refonte SI</span><span class="sep">/</span>
+        <strong>Mai 2026</strong>
+      </nav>
+      <div class="topbar__spacer"></div>
+      <span class="autosave" role="status">
+        <svg class="icon-sm" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+        Brouillon enregistré · à l'instant
+      </span>
+    </header>
+
+    <main class="content">
+      <div class="page-head" style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--s-4);flex-wrap:wrap;">
+        <div>
+          <h1>Saisie du CRA</h1>
+          <p>Compte rendu d'activité · <strong>Mai 2026</strong>. Cliquez un jour pour changer son état.</p>
+        </div>
+        <span class="pill pill--draft" style="margin-top:8px;"><span class="pill__dot"></span>
+          <svg class="icon-sm" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>Brouillon</span>
+      </div>
+
+      <!-- Contexte mission -->
+      <div class="context" style="margin-bottom:var(--s-5);">
+        <div class="context__id">
+          <span class="context__avatar" aria-hidden="true">RS</span>
+          <div class="ctx-item">
+            <span class="eyebrow">Projet</span>
+            <span class="v">Refonte SI</span>
+          </div>
+        </div>
+        <div class="vrule" aria-hidden="true"></div>
+        <div class="ctx-item"><span class="eyebrow">Client</span><span class="v">Groupe Vauban</span></div>
+        <div class="ctx-item"><span class="eyebrow">Prestataire</span><span class="v">Arnaud Méhat</span></div>
+        <div class="ctx-item"><span class="eyebrow">TJM</span><span class="v num">550 €</span></div>
+        <div class="context__spacer"></div>
+        <div class="context__total">
+          <span class="eyebrow">Montant du mois</span>
+          <div class="amt num">10 175 €</div>
+        </div>
+      </div>
+
+      <!-- Synthèse KPI -->
+      <section class="summary-row" aria-label="Synthèse du mois" style="margin-bottom:var(--s-5);">
+        <div class="mini"><span class="eyebrow">Jours travaillés</span><span class="v num">18,5<span class="unit"> j</span></span></div>
+        <div class="mini"><span class="eyebrow">Demi-journées</span><span class="v num">1</span></div>
+        <div class="mini"><span class="eyebrow">Fériés travaillés</span><span class="v num">2</span></div>
+        <div class="mini"><span class="eyebrow">Montant (j × TJM)</span><span class="v num">10 175<span class="unit"> €</span></span></div>
+      </section>
+
+      <!-- Calendrier -->
+      <section class="cal cal--edit" aria-label="Calendrier de saisie, Mai 2026">
+        <div class="cal__head">
+          <div class="cal__title">
+            <h3>Mai</h3><span class="yr num">2026</span>
+          </div>
+          <div class="cal__nav">
+            <button class="iconbtn" aria-label="Mois précédent">
+              <svg class="icon" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <button class="iconbtn" aria-label="Mois suivant">
+              <svg class="icon" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="cal__grid">
+          <div class="cal__dow" aria-hidden="true">
+            <span>Lun</span><span>Mar</span><span>Mer</span><span>Jeu</span><span>Ven</span><span>Sam</span><span>Dim</span>
+          </div>
+          <div class="cal__weeks" role="grid">
+            <!-- Semaine 1 -->
+            <div class="day day--pad" aria-hidden="true"><span class="day__num">27</span></div>
+            <div class="day day--pad" aria-hidden="true"><span class="day__num">28</span></div>
+            <div class="day day--pad" aria-hidden="true"><span class="day__num">29</span></div>
+            <div class="day day--pad" aria-hidden="true"><span class="day__num">30</span></div>
+            <button class="day day--holiday" aria-label="Vendredi 1 mai, férié non travaillé, Fête du travail">
+              <span class="day__tag" aria-hidden="true">F</span><span class="day__num">1</span><span class="day__lab">Fête du travail</span>
+            </button>
+            <div class="day day--weekend" aria-label="Samedi 2 mai, week-end"><span class="day__num">2</span></div>
+            <div class="day day--weekend" aria-label="Dimanche 3 mai, week-end"><span class="day__num">3</span></div>
+
+            <!-- Semaine 2 -->
+            <button class="day day--work" aria-label="Lundi 4 mai, travaillé"><span class="day__tag" aria-hidden="true">J</span><span class="day__num">4</span></button>
+            <button class="day day--work" aria-label="Mardi 5 mai, travaillé"><span class="day__tag" aria-hidden="true">J</span><span class="day__num">5</span></button>
+            <button class="day day--work" aria-label="Mercredi 6 mai, travaillé"><span class="day__tag" aria-hidden="true">J</span><span class="day__num">6</span></button>
+            <button class="day day--work" aria-label="Jeudi 7 mai, travaillé"><span class="day__tag" aria-hidden="true">J</span><span class="day__num">7</span></button>
+            <button class="day day--holiday-work" aria-label="Vendredi 8 mai, férié travaillé, Victoire 1945">
+              <span class="day__tag" aria-hidden="true">F+</span><span class="day__num">8</span><span class="day__lab">Férié travaillé</span>
+            </button>
+            <div class="day day--weekend" aria-label="Samedi 9 mai, week-end"><span class="day__num">9</span></div>
+            <div class="day day--weekend" aria-label="Dimanche 10 mai, week-end"><span class="day__num">10</span></div>
+
+            <!-- Semaine 3 -->
+            <button class="day day--work" aria-label="Lundi 11 mai, travaillé"><span class="day__tag" aria-hidden="true">J</span><span class="day__num">11</span></button>
+            <button class="day day--work" aria-label="Mardi 12 mai, travaillé"><span class="day__tag" aria-hidden="true">J</span><span class="day__num">12</span></button>
+            <button class="day day--work" aria-label="Mercredi 13 mai, travaillé"><span class="day__tag" aria-hidden="true">J</span><span class="day__num">13</span></button>
+            <button class="day day--holiday" aria-label="Jeudi 14 mai, férié non travaillé, Ascension">
+              <span class="day__tag" aria-hidden="true">F</span><span class="day__num">14</span><span class="day__lab">Ascension</span>
+            </button>
+            <button class="day day--half" aria-label="Vendredi 15 mai, demi-journée">
+              <span class="day__tag" aria-hidden="true">½</span><span class="day__num">15</span><span class="day__lab">Demi-journée</span>
+            </button>
+            <div class="day day--weekend" aria-label="Samedi 16 mai, week-end"><span class="day__num">16</span></div>
+            <div class="day day--weekend" aria-label="Dimanche 17 mai, week-end"><span class="day__num">17</span></div>
+
+            <!-- Semaine 4 -->
+            <button class="day day--work" aria-label="Lundi 18 mai, travaillé"><span class="day__tag" aria-hidden="true">J</span><span class="day__num">18</span></button>
+            <button class="day day--work" aria-label="Mardi 19 mai, travaillé"><span class="day__tag" aria-hidden="true">J</span><span class="day__num">19</span></button>
+            <button class="day day--work" aria-label="Mercredi 20 mai, travaillé"><span class="day__tag" aria-hidden="true">J</span><span class="day__num">20</span></button>
+            <button class="day day--work" aria-label="Jeudi 21 mai, travaillé"><span class="day__tag" aria-hidden="true">J</span><span class="day__num">21</span></button>
+            <button class="day day--work" aria-label="Vendredi 22 mai, travaillé"><span class="day__tag" aria-hidden="true">J</span><span class="day__num">22</span></button>
+            <div class="day day--weekend" aria-label="Samedi 23 mai, week-end"><span class="day__num">23</span></div>
+            <div class="day day--weekend" aria-label="Dimanche 24 mai, week-end"><span class="day__num">24</span></div>
+
+            <!-- Semaine 5 -->
+            <button class="day day--holiday-work" aria-label="Lundi 25 mai, férié travaillé, lundi de Pentecôte">
+              <span class="day__tag" aria-hidden="true">F+</span><span class="day__num">25</span><span class="day__lab">Pentecôte</span>
+            </button>
+            <button class="day day--work" aria-label="Mardi 26 mai, travaillé"><span class="day__tag" aria-hidden="true">J</span><span class="day__num">26</span></button>
+            <button class="day day--work" aria-label="Mercredi 27 mai, travaillé"><span class="day__tag" aria-hidden="true">J</span><span class="day__num">27</span></button>
+            <button class="day day--work" aria-label="Jeudi 28 mai, travaillé"><span class="day__tag" aria-hidden="true">J</span><span class="day__num">28</span></button>
+            <button class="day day--work" aria-label="Vendredi 29 mai, travaillé"><span class="day__tag" aria-hidden="true">J</span><span class="day__num">29</span></button>
+            <div class="day day--weekend" aria-label="Samedi 30 mai, week-end"><span class="day__num">30</span></div>
+            <div class="day day--weekend" aria-label="Dimanche 31 mai, week-end"><span class="day__num">31</span></div>
+          </div>
+        </div>
+
+        <div class="legend" aria-label="Légende des états">
+          <span class="legend__item"><span class="legend__sw sw-work" aria-hidden="true"></span>Travaillé</span>
+          <span class="legend__item"><span class="legend__sw sw-half" aria-hidden="true"></span>Demi-journée</span>
+          <span class="legend__item"><span class="legend__sw sw-off" aria-hidden="true"></span>Non travaillé</span>
+          <span class="legend__item"><span class="legend__sw sw-leave" aria-hidden="true"></span>Congé</span>
+          <span class="legend__item"><span class="legend__sw sw-holiday" aria-hidden="true"></span>Férié</span>
+          <span class="legend__item"><span class="legend__sw sw-holiday-work" aria-hidden="true"></span>Férié travaillé</span>
+          <span class="legend__item"><span class="legend__sw sw-weekend" aria-hidden="true"></span>Week-end</span>
+        </div>
+      </section>
+
+      <!-- Barre d'action -->
+      <div class="actionbar" style="margin-top:var(--s-5);">
+        <span class="autosave" role="status">
+          <svg class="icon-sm" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+          Toutes vos modifications sont enregistrées
+        </span>
+        <span class="actionbar__note">Une fois soumis, Groupe Vauban est notifié pour validation. Le CRA reste modifiable tant qu'il n'est pas validé.</span>
+        <div class="actionbar__spacer"></div>
+        <button class="btn btn--secondary">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+          Aperçu
+        </button>
+        <button class="btn btn--primary btn--lg" data-demo-loading data-loading-label="Envoi en cours">
+          Soumettre le CRA
+          <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </button>
+      </div>
+      <p class="autosave" id="submitStatus" role="status" aria-live="polite" style="margin-top:var(--s-3);min-height:18px;"></p>
+    </main>
+  </div>
+</div>
+
+<script>
+  // menu mobile
+  var t = document.getElementById('menuToggle');
+  if (t) t.addEventListener('click', function(){ document.body.classList.toggle('nav-open'); });
+
+  // démo état loading sur les boutons marqués data-demo-loading (sans framework)
+  document.querySelectorAll('[data-demo-loading]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if (btn.classList.contains('is-loading')) return;
+      btn.classList.add('is-loading');
+      btn.setAttribute('aria-busy', 'true');
+      var status = document.getElementById('submitStatus');
+      if (status) status.textContent = btn.getAttribute('data-loading-label') || 'Traitement en cours';
+      setTimeout(function(){
+        btn.classList.remove('is-loading');
+        btn.removeAttribute('aria-busy');
+        if (status) status.textContent = 'CRA soumis · Groupe Vauban a été notifié pour validation.';
+      }, 1800);
+    });
+  });
+</script>
+</body>
+</html>

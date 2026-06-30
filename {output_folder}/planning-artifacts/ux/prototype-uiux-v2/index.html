@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prototype Suivi CRA v2 - Maquettes</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="cover">
+
+  <header class="cover__hero">
+    <div>
+      <div class="brand" style="padding:0 0 18px;">
+        <span class="brand__mark" aria-hidden="true">
+          <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m9 16 2 2 4-4"/></svg>
+        </span>
+        <span><span class="brand__name" style="color:var(--ink)">Suivi CRA</span><br><span class="brand__sub" style="color:var(--ink-3)">Prototype haute fidélité · v2</span></span>
+      </div>
+      <h1>Gérez votre CRA,<br><span class="accent">simple et en vue rapide.</span></h1>
+      <p class="cover__lede">Maquettes statiques du tunnel prestataire et client en direct : saisie au fil du mois, validation en un clic, statut lisible partout. Direction visuelle « Bento éditorial / Soft Data » pilotée par ui-ux-pro-max, avec un système de boutons retravaillé.</p>
+      <div class="cover__cta">
+        <a class="btn btn--primary btn--lg" href="dashboard.html">
+          Ouvrir le tableau de bord
+          <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <a class="btn btn--secondary btn--lg" href="saisie-cra.html">
+          <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          Voir la saisie du CRA
+        </a>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;">
+      <span class="pill pill--draft"><span class="pill__dot"></span>Brouillon</span>
+      <span class="pill pill--pending"><span class="pill__dot"></span>En attente</span>
+      <span class="pill pill--valid"><span class="pill__dot"></span>Validé</span>
+      <span class="pill pill--invoiced"><span class="pill__dot"></span>Facturé</span>
+      <span class="pill pill--paid"><span class="pill__dot"></span>Réglé</span>
+    </div>
+  </header>
+
+  <!-- 3 écrans -->
+  <section class="screens" aria-label="Les trois écrans">
+    <a class="screen-card" href="dashboard.html">
+      <div class="screen-card__thumb">
+        <div class="tmb">
+          <div class="tmb__row"><div class="tmb__box"></div><div class="tmb__box"></div><div class="tmb__box"></div><div class="tmb__box"></div></div>
+          <div class="tmb__row"><div class="tmb__box tall" style="flex:3"></div><div class="tmb__box tall"></div></div>
+          <div class="tmb__pillline"><span class="tmb__pill"></span><span class="tmb__pill" style="background:var(--st-paid-bg)"></span></div>
+          <div class="tmb__pillline"><span class="tmb__pill" style="background:var(--st-invoiced-bg)"></span><span class="tmb__pill" style="background:var(--st-pending-bg)"></span></div>
+        </div>
+      </div>
+      <div class="screen-card__body">
+        <span class="screen-card__n">ÉCRAN 1</span>
+        <h3>Tableau de bord</h3>
+        <p>La vue rapide du prestataire : indicateurs du mois et CRA récents avec leur statut.</p>
+        <span class="linklike screen-card__go">Ouvrir <svg class="icon-sm" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+      </div>
+    </a>
+
+    <a class="screen-card" href="saisie-cra.html">
+      <div class="screen-card__thumb">
+        <div class="tmb">
+          <div class="tmb__bar" style="width:55%"></div>
+          <div class="tmb__grid">
+            <div class="tmb__cell h"></div><div class="tmb__cell w"></div><div class="tmb__cell w"></div><div class="tmb__cell w"></div><div class="tmb__cell w"></div><div class="tmb__cell we"></div><div class="tmb__cell we"></div>
+            <div class="tmb__cell w"></div><div class="tmb__cell w"></div><div class="tmb__cell w"></div><div class="tmb__cell h"></div><div class="tmb__cell w"></div><div class="tmb__cell we"></div><div class="tmb__cell we"></div>
+            <div class="tmb__cell w"></div><div class="tmb__cell w"></div><div class="tmb__cell w"></div><div class="tmb__cell w"></div><div class="tmb__cell w"></div><div class="tmb__cell we"></div><div class="tmb__cell we"></div>
+          </div>
+        </div>
+      </div>
+      <div class="screen-card__body">
+        <span class="screen-card__n">ÉCRAN 2</span>
+        <h3>Saisie du CRA</h3>
+        <p>Grille calendrier de Mai 2026 : états par jour, fériés travaillés, auto-enregistrement, soumission.</p>
+        <span class="linklike screen-card__go">Ouvrir <svg class="icon-sm" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+      </div>
+    </a>
+
+    <a class="screen-card" href="validation-cra.html">
+      <div class="screen-card__thumb">
+        <div class="tmb">
+          <div class="tmb__row"><div class="tmb__box"></div></div>
+          <div class="tmb__grid">
+            <div class="tmb__cell h"></div><div class="tmb__cell w"></div><div class="tmb__cell w"></div><div class="tmb__cell w"></div><div class="tmb__cell w"></div><div class="tmb__cell we"></div><div class="tmb__cell we"></div>
+            <div class="tmb__cell w"></div><div class="tmb__cell w"></div><div class="tmb__cell w"></div><div class="tmb__cell h"></div><div class="tmb__cell w"></div><div class="tmb__cell we"></div><div class="tmb__cell we"></div>
+          </div>
+          <div class="tmb__pillline" style="justify-content:flex-end"><span class="tmb__pill" style="background:var(--st-reject-bg);width:40px"></span><span class="tmb__pill" style="background:var(--accent);width:40px"></span></div>
+        </div>
+      </div>
+      <div class="screen-card__body">
+        <span class="screen-card__n">ÉCRAN 3</span>
+        <h3>Validation client</h3>
+        <p>Calendrier en lecture seule, contexte de facturation, et double action Valider / Demander une correction.</p>
+        <span class="linklike screen-card__go">Ouvrir <svg class="icon-sm" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+      </div>
+    </a>
+  </section>
+
+  <!-- Système de boutons (vitrine v2) -->
+  <section class="card card__pad" aria-label="Système de boutons" style="margin-bottom:var(--s-8);">
+    <span class="eyebrow">Nouveauté v2</span>
+    <h3 style="margin:6px 0 4px;font-size:18px;">Système de boutons (qualité Tailwind UI / shadcn)</h3>
+    <p class="muted" style="font-size:13.5px;margin-bottom:20px;max-width:620px;">Quatre variantes, trois tailles, états complets (survol, pression, focus visible, désactivé, chargement). Icônes SVG verrouillées et alignées au texte, anneau de focus net, ombre douce teintée sur le bouton primaire.</p>
+    <div class="btnshow">
+      <div class="btnshow__row">
+        <span class="btnshow__cap">Variantes</span>
+        <button class="btn btn--primary">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Primaire
+        </button>
+        <button class="btn btn--secondary">Secondaire</button>
+        <button class="btn btn--ghost">Fantôme</button>
+        <button class="btn btn--danger">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>Demander une correction
+        </button>
+      </div>
+      <div class="btnshow__row">
+        <span class="btnshow__cap">Tailles</span>
+        <button class="btn btn--primary btn--sm">Petit</button>
+        <button class="btn btn--primary">Moyen</button>
+        <button class="btn btn--primary btn--lg">
+          Grand
+          <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </button>
+      </div>
+      <div class="btnshow__row">
+        <span class="btnshow__cap">États</span>
+        <button class="btn btn--primary" disabled>Désactivé</button>
+        <button class="btn btn--primary" data-demo-loading data-loading-label="Chargement">
+          Tester le chargement
+          <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Spécs design -->
+  <section class="spec" aria-label="Système de design">
+    <div class="card card__pad">
+      <span class="eyebrow">Palette</span>
+      <h3 style="margin:6px 0 16px;font-size:18px;">Ivoire chaud, encre navy, accent confiance</h3>
+      <div class="swatches">
+        <div class="swatch"><span class="swatch__chip" style="background:#F4F2ED"></span><span class="swatch__name">Canvas</span><span class="swatch__hex num">#F4F2ED</span></div>
+        <div class="swatch"><span class="swatch__chip" style="background:#14171E"></span><span class="swatch__name">Encre / shell</span><span class="swatch__hex num">#14171E</span></div>
+        <div class="swatch"><span class="swatch__chip" style="background:#2C5BEF"></span><span class="swatch__name">Accent CTA</span><span class="swatch__hex num">#2C5BEF</span></div>
+        <div class="swatch"><span class="swatch__chip" style="background:#1C8A4A"></span><span class="swatch__name">Validé</span><span class="swatch__hex num">#1C8A4A</span></div>
+        <div class="swatch"><span class="swatch__chip" style="background:#C77A0A"></span><span class="swatch__name">En attente</span><span class="swatch__hex num">#C77A0A</span></div>
+        <div class="swatch"><span class="swatch__chip" style="background:#5145D8"></span><span class="swatch__name">Facturé</span><span class="swatch__hex num">#5145D8</span></div>
+        <div class="swatch"><span class="swatch__chip" style="background:#0E9488"></span><span class="swatch__name">Réglé</span><span class="swatch__hex num">#0E9488</span></div>
+        <div class="swatch"><span class="swatch__chip" style="background:#D1392B"></span><span class="swatch__name">Correction</span><span class="swatch__hex num">#D1392B</span></div>
+      </div>
+    </div>
+
+    <div class="card card__pad typo-spec">
+      <span class="eyebrow">Typographie</span>
+      <h3 style="margin:6px 0 16px;font-size:18px;">Outfit + Inter</h3>
+      <h4 class="muted">Display · Outfit 600</h4>
+      <p class="typo-demo-display">10 175 € · 18,5 jours</p>
+      <h4 class="muted" style="margin-top:16px;">Corps · Inter 400 / chiffres tabulaires</h4>
+      <p class="typo-demo-body">Saisie au fil du mois, statut lisible partout, montant recalculé en direct. Les chiffres utilisent <span class="num">tabular-nums</span> pour des colonnes stables.</p>
+      <p style="margin-top:18px;font-size:12.5px;color:var(--ink-3);">Le système de design complet est documenté dans <span class="num">design-system/MASTER.md</span>.</p>
+    </div>
+  </section>
+
+  <footer style="margin-top:var(--s-7);padding-top:var(--s-5);border-top:1px solid var(--line);color:var(--ink-3);font-size:12.5px;">
+    Prototype statique HTML + CSS · sans build, sans framework · accessibilité AA, focus visible, responsive · Direction pilotée par ui-ux-pro-max 2.5.0.
+  </footer>
+</div>
+
+<script>
+  // démo état loading (vitrine boutons)
+  document.querySelectorAll('[data-demo-loading]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if (btn.classList.contains('is-loading')) return;
+      btn.classList.add('is-loading');
+      btn.setAttribute('aria-busy', 'true');
+      setTimeout(function(){
+        btn.classList.remove('is-loading');
+        btn.removeAttribute('aria-busy');
+      }, 1800);
+    });
+  });
+</script>
+</body>
+</html>

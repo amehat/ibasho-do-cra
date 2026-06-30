@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tableau de bord · Suivi CRA</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="topnav">
+    <div class="brand">
+      <span class="mark"><svg class="icon" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/></svg></span>
+      Suivi CRA
+    </div>
+    <div class="links">
+      <a class="active" href="dashboard.html">Tableau de bord</a>
+      <a href="#">Projets</a>
+      <a href="saisie-cra.html">CRA</a>
+      <a href="#">Factures</a>
+      <a href="#">Règlements</a>
+    </div>
+    <span class="spacer"></span>
+    <button class="icon-btn" aria-label="Notifications">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+      <span class="dot"></span>
+    </button>
+    <div class="nav-avatar">
+      <span class="avatar">AM</span>
+      <span><div class="who">Arnaud Méhat</div><div class="role">Prestataire</div></span>
+    </div>
+  </nav>
+
+  <div class="page-head">
+    <div>
+      <div class="eyebrow">Mai 2026 · en cours</div>
+      <h1 class="page-title">Bonjour Arnaud</h1>
+      <p class="page-sub">Voici l'essentiel, en un coup d'oeil.</p>
+    </div>
+    <span class="spacer"></span>
+    <a class="btn btn-accent" href="saisie-cra.html">
+      <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+      Nouveau CRA
+    </a>
+  </div>
+
+  <section class="bento">
+
+    <!-- Hero : CRA du mois -->
+    <a class="tile t-hero interactive" href="saisie-cra.html">
+      <span class="glow-orb"></span>
+      <div class="hero-top">
+        <span class="t-label"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg> CRA en cours · Refonte SI</span>
+        <span class="spacer" style="flex:1"></span>
+        <span class="pill pill-draft"><span class="dotc"></span>Brouillon</span>
+      </div>
+      <div class="hero-amount tnum">10 175 <small>€</small></div>
+      <div class="hero-sub">Mai 2026 · 18,5 jours × 550 € de TJM</div>
+
+      <div class="hero-week">
+        <div class="hd hol"><div class="wd">Lun</div><div class="dn">25</div></div>
+        <div class="hd on"><div class="wd">Mar</div><div class="dn">26</div></div>
+        <div class="hd on"><div class="wd">Mer</div><div class="dn">27</div></div>
+        <div class="hd on"><div class="wd">Jeu</div><div class="dn">28</div></div>
+        <div class="hd on"><div class="wd">Ven</div><div class="dn">29</div></div>
+        <div class="hd"><div class="wd">Sam</div><div class="dn">30</div></div>
+        <div class="hd"><div class="wd">Dim</div><div class="dn">31</div></div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;font-size:.8rem;color:var(--fg-muted);margin-bottom:8px">
+        <span>Saisie du mois</span><span class="tnum" style="color:var(--fg)">18,5 / 20 j ouvrés</span>
+      </div>
+      <div class="bar"><span style="width:92%"></span></div>
+
+      <div class="hero-spacer"></div>
+      <span class="btn btn-glass" style="align-self:flex-start">
+        Compléter le CRA
+        <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </span>
+    </a>
+
+    <!-- En attente de règlement -->
+    <div class="tile t-wide t-pay interactive">
+      <span class="t-label"><svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> En attente de règlement</span>
+      <div class="t-big tnum">11 000 <small style="font-size:1.1rem;color:var(--fg-muted)">€</small></div>
+      <div style="color:var(--fg-faint);font-size:.78rem;margin-top:8px">1 facture transmise · Avril 2026 · échéance 7 j</div>
+      <div class="pay-track">
+        <i style="height:40%"></i><i style="height:62%"></i><i style="height:48%"></i><i style="height:80%"></i>
+        <i style="height:58%"></i><i style="height:96%"></i><i style="height:70%"></i><i style="height:100%"></i>
+      </div>
+    </div>
+
+    <!-- Stat : jours -->
+    <div class="tile t-stat interactive">
+      <span class="t-label"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg> Jours du mois</span>
+      <div class="t-big tnum">18,5<small style="font-size:1rem;color:var(--fg-muted)"> j</small></div>
+      <div class="t-foot">1 demi-journée · 2 fériés travaillés</div>
+    </div>
+
+    <!-- Stat : encaissé -->
+    <div class="tile t-stat interactive">
+      <span class="t-label"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg> Encaissé en 2026</span>
+      <div class="t-big tnum">30 350<small style="font-size:1rem;color:var(--fg-muted)"> €</small></div>
+      <div class="t-foot">3 CRA réglés</div>
+    </div>
+
+    <!-- Liste -->
+    <div class="tile t-span4 t-list">
+      <div class="t-list-head">
+        <h2>CRA récents</h2>
+        <span style="flex:1"></span>
+        <a class="link" href="#">Voir tout</a>
+      </div>
+
+      <div class="row">
+        <div class="r-proj">Refonte SI <small>Groupe Vauban</small></div>
+        <div class="r-mut">Mai 2026</div>
+        <div class="r-mut tnum">18,5 j</div>
+        <div class="r-amt tnum">10 175 €</div>
+        <div class="r-end"><span class="pill pill-pending"><span class="dotc"></span>En attente de validation</span></div>
+      </div>
+      <div class="row">
+        <div class="r-proj">Refonte SI <small>Groupe Vauban</small></div>
+        <div class="r-mut">Avril 2026</div>
+        <div class="r-mut tnum">20 j</div>
+        <div class="r-amt tnum">11 000 €</div>
+        <div class="r-end"><span class="pill pill-invoiced"><span class="dotc"></span>Facturé, transmis</span></div>
+      </div>
+      <div class="row">
+        <div class="r-proj">Audit sécurité <small>Lemarchand &amp; Fils</small></div>
+        <div class="r-mut">Mai 2026</div>
+        <div class="r-mut tnum">4 j</div>
+        <div class="r-amt tnum">2 600 €</div>
+        <div class="r-end"><span class="pill pill-draft"><span class="dotc"></span>Brouillon</span></div>
+      </div>
+      <div class="row">
+        <div class="r-proj">Refonte SI <small>Groupe Vauban</small></div>
+        <div class="r-mut">Mars 2026</div>
+        <div class="r-mut tnum">19 j</div>
+        <div class="r-amt tnum">10 450 €</div>
+        <div class="r-end"><span class="pill pill-paid"><span class="dotc"></span>Réglé</span></div>
+      </div>
+    </div>
+
+  </section>
+</div>
+</body>
+</html>

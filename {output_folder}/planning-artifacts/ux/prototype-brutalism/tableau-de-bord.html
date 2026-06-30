@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tableau de bord · Ibasho CRA</title>
+<meta name="description" content="Prototype neo-brutaliste - Gestionnaire de CRA Ibasho.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Aller au contenu</a>
+<div class="shell"><aside class="sidebar" id="sidebar" aria-label="Navigation principale">
+  <a class="brand" href="index.html">
+    <span class="mark" aria-hidden="true">CRA</span>
+    <span>Ibasho<small>GESTION CRA</small></span>
+  </a>
+  <nav aria-label="Sections">
+    <p class="nav-label">Espace prestataire</p>
+    <ul class="nav"><li><a href="tableau-de-bord.html" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span>Tableau de bord</span></a></li><li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Projets</span></a></li><li><a href="saisie-cra.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="17"/><path d="M3 9h18M8 2v4M16 2v4"/></svg><span>CRA</span></a></li><li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 2h8l4 4v16H6z"/><path d="M14 2v4h4M9 13h6M9 17h6"/></svg><span>Factures</span></a></li><li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="6" width="18" height="13"/><path d="M3 10h18M16 14h2"/></svg><span>Règlements</span></a></li></ul>
+  </nav>
+  <div class="sidebar-foot">
+    <div class="user-chip">
+      <span class="av" aria-hidden="true">AM</span>
+      <span><b>Arnaud Méhat</b><span>Prestataire</span></span>
+    </div>
+  </div>
+</aside>
+<div class="main"><header class="topbar">
+  <button class="burger" type="button" aria-label="Ouvrir le menu" aria-controls="sidebar" aria-expanded="false" onclick="document.body.classList.toggle('nav-open');this.setAttribute('aria-expanded', document.body.classList.contains('nav-open'));"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <p class="crumb"><b>Tableau de bord</b> / Mai 2026</p>
+  <span class="topbar-spacer"></span>
+  <button class="bell" type="button" aria-label="Notifications, 2 non lues"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 9a6 6 0 0 1 12 0c0 6 2 8 2 8H4s2-2 2-8z"/><path d="M10 21a2 2 0 0 0 4 0"/></svg><span class="dot num" aria-hidden="true">2</span></button>
+</header>
+<main id="main" class="content">
+<div class="page-head">
+  <span class="eyebrow">Espace prestataire</span>
+  <h1>Bonjour, Arnaud.</h1>
+  <p class="sub">Votre activité du mois en un coup d'oeil. Saisissez au fil de l'eau, soumettez en un geste, suivez le règlement jusqu'à réception.</p>
+</div>
+<section class="kpi-grid" aria-label="Indicateurs du mois">
+  <div class="kpi k-blue">
+    <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="17"/><path d="M3 9h18M8 2v4M16 2v4"/></svg></div>
+    <div class="lbl">Jours saisis · Mai 2026</div>
+    <div class="val num">18,5<span class="u"> j</span></div>
+    <div class="meta">18 j pleins · 1 demi-journée</div>
+  </div>
+  <div class="kpi k-yellow">
+    <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><ellipse cx="9" cy="7" rx="6" ry="3"/><path d="M3 7v5c0 1.7 2.7 3 6 3"/><ellipse cx="15" cy="14" rx="6" ry="3"/><path d="M9 14v3c0 1.7 2.7 3 6 3s6-1.3 6-3v-3"/></svg></div>
+    <div class="lbl">Montant du mois</div>
+    <div class="val num">10 175<span class="u"> €</span></div>
+    <div class="meta">18,5 j × <strong>550 €</strong> (TJM)</div>
+  </div>
+  <div class="kpi k-violet">
+    <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="6" width="18" height="13"/><path d="M3 10h18M16 14h2"/></svg></div>
+    <div class="lbl">En attente de règlement</div>
+    <div class="val num">11 000<span class="u"> €</span></div>
+    <div class="meta">Avril 2026 · facturé le 02/05</div>
+  </div>
+  <div class="kpi k-green">
+    <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg></div>
+    <div class="lbl">Encaissé · 2026</div>
+    <div class="val num">32 450<span class="u"> €</span></div>
+    <div class="meta">3 CRA réglés</div>
+  </div>
+</section>
+<section class="block" aria-label="CRA récents">
+  <div class="block-head">
+    <h2>CRA récents</h2>
+    <span class="tag">Vue rapide</span>
+  </div>
+  <div class="block-body">
+    <div class="table-wrap">
+      <table class="cra">
+        <thead>
+          <tr>
+            <th scope="col">Période / Projet</th>
+            <th scope="col" class="col-r">Jours</th>
+            <th scope="col" class="col-r">Montant</th>
+            <th scope="col">Statut</th>
+            <th scope="col" class="col-r">Action</th>
+          </tr>
+        </thead>
+        <tbody><tr>
+  <td class="period">Mai 2026<div class="muted">Refonte SI · Groupe Vauban</div></td>
+  <td class="mono col-r">18,5 j</td>
+  <td class="mono col-r">10 175 €</td>
+  <td><span class="pill s-draft sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 20h4L20 8l-4-4L4 16z"/><path d="M14 6l4 4"/></svg>Brouillon</span></td>
+  <td class="col-r"><a class="linkcell" href="saisie-cra.html">Reprendre la saisie<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></td>
+</tr><tr>
+  <td class="period">Avril 2026<div class="muted">Refonte SI · Groupe Vauban</div></td>
+  <td class="mono col-r">20,0 j</td>
+  <td class="mono col-r">11 000 €</td>
+  <td><span class="pill s-invoiced sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 2h8l4 4v16H6z"/><path d="M14 2v4h4M9 13h6M9 17h6"/></svg>Facturé</span></td>
+  <td class="col-r"><a class="linkcell" href="#">Voir la facture<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></td>
+</tr><tr>
+  <td class="period">Mars 2026<div class="muted">Refonte SI · Groupe Vauban</div></td>
+  <td class="mono col-r">21,0 j</td>
+  <td class="mono col-r">11 550 €</td>
+  <td><span class="pill s-paid sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>Réglé</span></td>
+  <td class="col-r"><a class="linkcell" href="#">Voir le détail<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></td>
+</tr><tr>
+  <td class="period">Février 2026<div class="muted">Refonte SI · Groupe Vauban</div></td>
+  <td class="mono col-r">19,0 j</td>
+  <td class="mono col-r">10 450 €</td>
+  <td><span class="pill s-paid sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>Réglé</span></td>
+  <td class="col-r"><a class="linkcell" href="#">Voir le détail<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></td>
+</tr><tr>
+  <td class="period">Janvier 2026<div class="muted">Refonte SI · Groupe Vauban</div></td>
+  <td class="mono col-r">20,0 j</td>
+  <td class="mono col-r">11 000 €</td>
+  <td><span class="pill s-paid sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>Réglé</span></td>
+  <td class="col-r"><a class="linkcell" href="#">Voir le détail<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></td>
+</tr></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<section class="block" style="margin-top:26px" aria-label="Cycle de vie d'un CRA">
+  <div class="block-head"><h2>Cycle de vie du CRA</h2><span class="tag">5 statuts</span></div>
+  <div class="block-body">
+    <div class="rail" role="list">
+      <div class="step now" role="listitem"><b>1</b>Brouillon</div>
+      <div class="step" role="listitem"><b>2</b>En attente</div>
+      <div class="step" role="listitem"><b>3</b>Validé</div>
+      <div class="step" role="listitem"><b>4</b>Facturé</div>
+      <div class="step" role="listitem"><b>5</b>Réglé</div>
+    </div>
+    <p class="muted" style="margin-top:14px;font-family:var(--font-mono);font-size:12px">
+      Le CRA de <strong>Mai 2026</strong> est en cours de saisie (brouillon). Soumettez-le pour notifier le client.
+    </p>
+  </div>
+</section></main>
+</div>
+</div>
+</body>
+</html>

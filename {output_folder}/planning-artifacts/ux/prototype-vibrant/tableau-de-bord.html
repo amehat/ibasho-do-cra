@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tableau de bord - Ibasho CRA</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Aller au contenu</a>
+<div class="nav-scrim" data-nav-scrim></div>
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" aria-label="Navigation principale">
+    <a class="brand" href="index.html">
+      <span class="mark">iB</span>
+      <span>Ibasho CRA<small>Compte rendu d'activite</small></span>
+    </a>
+    <span class="role-chip"><span class="dot"></span>Prestataire</span>
+    <nav class="nav">
+      <a href="tableau-de-bord.html" aria-current="page">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+        Tableau de bord
+      </a>
+      <a href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v10l9 4 9-4V7"/></svg>
+        Projets
+      </a>
+      <a href="saisie-cra.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>
+        CRA
+      </a>
+      <a href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg>
+        Factures
+      </a>
+      <a href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 9.5h4.5a2 2 0 010 4H9"/></svg>
+        Reglements
+      </a>
+    </nav>
+    <div class="sidebar-foot">
+      <span class="avatar">AM</span>
+      <span class="who">Arnaud Mehat<small>Prestataire independant</small></span>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <header class="topbar">
+      <button class="menu-btn" data-menu-toggle aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="main">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <nav class="crumbs" aria-label="Fil d'ariane">
+        <b>Tableau de bord</b>
+      </nav>
+      <span class="topbar-spacer"></span>
+      <button class="icon-btn" aria-label="Notifications (1 non lue)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg>
+        <span class="badge num">1</span>
+      </button>
+    </header>
+
+    <main class="content" id="main">
+      <div class="page-head">
+        <p class="eyebrow">Mai 2026 - vue rapide</p>
+        <h1>Bonjour Arnaud.</h1>
+        <p>Voici l'etat de votre activite ce mois-ci. Votre CRA de mai est soumis et attend la validation du Groupe Vauban.</p>
+      </div>
+
+      <!-- KPI BLOCKS -->
+      <section class="kpi-grid" aria-label="Indicateurs du mois">
+        <div class="kpi k-violet">
+          <span class="kpi-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/><path d="M8 14h2M14 14h2"/></svg>
+          </span>
+          <div>
+            <div class="kpi-label">Jours saisis</div>
+            <div class="kpi-value num">18,5 j</div>
+          </div>
+          <div class="kpi-sub">18 jours pleins + 1 demi-journee</div>
+        </div>
+
+        <div class="kpi k-lime">
+          <span class="kpi-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 9.5h4.5a2 2 0 010 4H9"/></svg>
+          </span>
+          <div>
+            <div class="kpi-label">Montant du mois</div>
+            <div class="kpi-value num">10 175 &euro;</div>
+          </div>
+          <div class="kpi-sub">18,5 j x 550 &euro; de TJM</div>
+        </div>
+
+        <div class="kpi k-ink">
+          <span class="kpi-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          </span>
+          <div>
+            <div class="kpi-label">En attente de reglement</div>
+            <div class="kpi-value num">10 175 &euro;</div>
+          </div>
+          <div class="kpi-sub">1 CRA en cours de validation</div>
+        </div>
+
+        <div class="kpi k-paper">
+          <span class="kpi-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          </span>
+          <div>
+            <div class="kpi-label">Encaisse (2026)</div>
+            <div class="kpi-value num">42 350 &euro;</div>
+          </div>
+          <div class="kpi-sub">4 reglements recus</div>
+        </div>
+      </section>
+
+      <!-- CRA RECENTS -->
+      <section class="block block-pad" aria-label="CRA recents">
+        <div class="section-title">
+          <h2>CRA recents</h2>
+          <span class="tag">Mission : Refonte SI</span>
+        </div>
+
+        <div class="table-wrap">
+          <table class="cra-table">
+            <thead>
+              <tr>
+                <th scope="col">Periode</th>
+                <th scope="col">Client</th>
+                <th scope="col" class="r">Jours</th>
+                <th scope="col" class="r">Montant</th>
+                <th scope="col">Statut</th>
+                <th scope="col" class="r">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="t-main">Mai 2026</div>
+                  <div class="t-sub">Soumis le 31/05</div>
+                </td>
+                <td>Groupe Vauban</td>
+                <td class="r t-num num">18,5</td>
+                <td class="r t-num num">10 175 &euro;</td>
+                <td>
+                  <span class="status s-pending">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                    En attente de validation
+                  </span>
+                </td>
+                <td class="r"><a class="row-link" href="saisie-cra.html">Ouvrir
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="t-main">Avril 2026</div>
+                  <div class="t-sub">Valide le 04/05</div>
+                </td>
+                <td>Groupe Vauban</td>
+                <td class="r t-num num">20</td>
+                <td class="r t-num num">11 000 &euro;</td>
+                <td>
+                  <span class="status s-paid">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                    Regle
+                  </span>
+                </td>
+                <td class="r"><a class="row-link" href="validation-client.html">Voir
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="t-main">Mars 2026</div>
+                  <div class="t-sub">Facture le 03/04</div>
+                </td>
+                <td>Groupe Vauban</td>
+                <td class="r t-num num">21</td>
+                <td class="r t-num num">11 550 &euro;</td>
+                <td>
+                  <span class="status s-invoice">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6"/></svg>
+                    Facture
+                  </span>
+                </td>
+                <td class="r"><a class="row-link" href="validation-client.html">Voir
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="t-main">Fevrier 2026</div>
+                  <div class="t-sub">Regle le 07/03</div>
+                </td>
+                <td>Groupe Vauban</td>
+                <td class="r t-num num">18</td>
+                <td class="r t-num num">9 900 &euro;</td>
+                <td>
+                  <span class="status s-paid">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                    Regle
+                  </span>
+                </td>
+                <td class="r"><a class="row-link" href="validation-client.html">Voir
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

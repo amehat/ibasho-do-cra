@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solution Design — Gestionnaire de CRA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<style>
+  :root{
+    --ivoire:#F4F2ED; --navy:#14171E; --accent:#2C5BEF; --accent-soft:#E7EDFD;
+    --muted:#6B6F78; --line:#E2DFD7; --surface:#FBFAF7; --code:#1B1F27;
+    --green:#15803D; --amber:#B45309; --red:#DC2626;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--ivoire);color:var(--navy);
+    font-family:Inter,system-ui,sans-serif;line-height:1.6;font-size:16px}
+  .wrap{display:grid;grid-template-columns:260px 1fr;max-width:1280px;margin:0 auto;gap:0}
+  nav{position:sticky;top:0;align-self:start;height:100vh;overflow-y:auto;
+    padding:32px 20px;border-right:1px solid var(--line);font-size:13.5px}
+  nav h4{font-family:Outfit;font-size:12px;text-transform:uppercase;letter-spacing:.08em;
+    color:var(--muted);margin:22px 0 8px}
+  nav a{display:block;color:var(--navy);text-decoration:none;padding:3px 0;opacity:.8}
+  nav a:hover{color:var(--accent);opacity:1}
+  main{padding:48px 56px;max-width:920px}
+  h1{font-family:Outfit;font-weight:700;font-size:34px;line-height:1.15;margin:0 0 6px}
+  h2{font-family:Outfit;font-weight:600;font-size:24px;margin:54px 0 16px;
+    padding-bottom:8px;border-bottom:2px solid var(--navy)}
+  h3{font-family:Outfit;font-weight:600;font-size:18px;margin:30px 0 10px}
+  .sub{color:var(--muted);font-size:17px;margin:0 0 4px}
+  .tag{display:inline-block;background:var(--accent-soft);color:var(--accent);
+    font-family:Outfit;font-weight:600;font-size:12px;padding:3px 10px;border-radius:6px;
+    letter-spacing:.02em}
+  .lede{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);
+    border-radius:8px;padding:18px 22px;margin:24px 0;font-size:15.5px}
+  .ad{background:var(--surface);border:1px solid var(--line);border-radius:10px;
+    padding:18px 22px;margin:14px 0}
+  .ad h3{margin-top:0;display:flex;align-items:baseline;gap:10px}
+  .ad .id{font-family:Outfit;color:var(--accent);font-weight:700}
+  .ad dl{margin:8px 0 0;display:grid;grid-template-columns:92px 1fr;gap:4px 14px;font-size:14.5px}
+  .ad dt{color:var(--muted);font-weight:600;font-family:Outfit;font-size:12.5px;
+    text-transform:uppercase;letter-spacing:.04em;padding-top:2px}
+  .ad dd{margin:0}
+  .grp{font-family:Outfit;font-weight:600;font-size:13px;color:var(--muted);
+    text-transform:uppercase;letter-spacing:.06em;margin:28px 0 6px}
+  table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14px}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-family:Outfit;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  code{background:#ECE9E1;padding:1px 6px;border-radius:4px;font-size:13px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .mermaid{background:var(--surface);border:1px solid var(--line);border-radius:10px;
+    padding:22px;margin:18px 0;text-align:center}
+  .pill{display:inline-block;font-size:11.5px;font-weight:600;font-family:Outfit;
+    padding:2px 9px;border-radius:20px;margin-right:6px}
+  .pill.adopt{background:#DCFCE7;color:var(--green)}
+  .callout{border-radius:8px;padding:14px 18px;margin:14px 0;font-size:14.5px}
+  .callout.warn{background:#FEF6E7;border:1px solid #F3D9A0}
+  .callout.fix{background:var(--accent-soft);border:1px solid #C7D6FA}
+  footer{color:var(--muted);font-size:13px;margin:60px 0 20px;border-top:1px solid var(--line);padding-top:18px}
+  @media(max-width:900px){.wrap{grid-template-columns:1fr}nav{display:none}main{padding:32px 22px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav>
+  <h4>Sommaire</h4>
+  <a href="#contexte">Contexte</a>
+  <a href="#paradigme">Paradigme & topologie</a>
+  <a href="#invariants">Invariants (AD-1…24)</a>
+  <a href="#conventions">Conventions</a>
+  <a href="#stack">Stack</a>
+  <a href="#deploiement">Déploiement o2switch</a>
+  <a href="#donnees">Modèle de données</a>
+  <a href="#etats">Cycle de vie du CRA</a>
+  <a href="#arbo">Arborescence monorepo</a>
+  <a href="#capacites">Capacités → archi</a>
+  <a href="#deferred">Différé</a>
+  <a href="#reconcile">À réconcilier</a>
+</nav>
+<main>
+  <span class="tag">Solution Design · v1</span>
+  <h1>Gestionnaire de CRA</h1>
+  <p class="sub">Architecture de la v1 — tunnel CRA → validation/signature → facture → règlement, multi-organisations, prestataire en direct.</p>
+  <p style="color:var(--muted);font-size:13px">Document compagnon de <code>ARCHITECTURE-SPINE.md</code> · 29 juin 2026 · statut final</p>
+
+  <div class="lede">
+    Ce document déroule la <strong>spine d'architecture</strong> : le contrat d'invariants qui empêche le front Nuxt, les modules NestJS et le schéma MariaDB — construits séparément — de diverger. La stack est posée ; le code possède le détail dès qu'il existe. Chaque décision load-bearing (AD) porte ce qu'elle <em>lie</em>, la <em>divergence qu'elle empêche</em>, et sa <em>règle</em> applicable.
+  </div>
+
+  <h2 id="contexte">Contexte</h2>
+  <p>Outil web qui dématérialise la chaîne administrative d'une mission de prestation. Le problème chiffré : un délai de paiement négocié de 7 jours, mais ~15 jours d'allers-retours papier ; un couac 1 mois sur 3. La v1 vise un prestataire indépendant <strong>en direct</strong> avec son client, dans un cadre multi-organisations. Mantra produit, porté jusque dans l'archi : <strong>« simple, avec une vue rapide »</strong>.</p>
+  <p>Le produit a une <strong>valeur juridique</strong> (la validation client vaut signature électronique, Option A) : c'est ce qui justifie la rigueur sur l'immuabilité, le snapshot figé, l'audit transactionnel et la sauvegarde.</p>
+
+  <h2 id="paradigme">Paradigme & topologie</h2>
+  <p><strong>Architecture hexagonale stricte (ports & adapters), un module NestJS par contexte borné, derrière un Backend-For-Frontend Nuxt (Nitro).</strong> Le navigateur ne parle qu'au serveur Nuxt, qui termine l'authentification et relaie vers une API NestJS non publique. Toutes les dépendances pointent vers le domaine.</p>
+  <div class="mermaid">
+flowchart TB
+  subgraph BROWSER["Navigateur — Nuxt (atomic design)"]
+    UI["Composants — appellent SEULEMENT les routes BFF"]
+  end
+  subgraph BFF["Nuxt / Nitro — Backend-For-Frontend"]
+    SR["Server routes : session cookie httpOnly, JWT identité signé"]
+  end
+  subgraph NEST["NestJS — API non publique (hexagonal strict)"]
+    direction TB
+    ADP["Adapters (HTTP, MikroORM, Brevo, pdfmake, FS)"]
+    APP["Application (use-cases) — orchestration + autorisation"]
+    DOM["Domaine pur (agrégats, VO, machine à états)"]
+    ADP --> APP --> DOM
+  end
+  DB[("MariaDB")]
+  BREVO["Brevo (email)"]
+  FS["Disque o2switch (PDF hors webroot)"]
+  UI --> SR --> NEST
+  ADP --> DB
+  ADP --> BREVO
+  ADP --> FS
+  </div>
+  <p>Les <strong>8 contextes bornés</strong> sont des modules NestJS étanches : <code>iam</code>, <code>projects</code>, <code>cra</code> (le cœur), <code>invoicing</code>, <code>settlement</code>, <code>notifications</code>, <code>audit</code>, <code>documents</code>. Ils communiquent par <strong>événements de domaine sur un bus in-process</strong> — jamais en tapant dans le repo l'un de l'autre.</p>
+
+  <h2 id="invariants">Invariants & règles</h2>
+  <p>24 décisions d'architecture. <span class="pill adopt">ADOPTED</span> = arbitrage déjà tranché (par le PRD, la réalité o2switch, ou un choix explicite en coaching).</p>
+
+  <p class="grp">Topologie & paradigme</p>
+  <div class="ad"><h3><span class="id">AD-1</span> Topologie BFF</h3><dl>
+    <dt>Empêche</dt><dd>que le navigateur appelle NestJS en direct ; un token côté client ; deux contrats à synchroniser.</dd>
+    <dt>Règle</dt><dd>Le navigateur ne contacte que les server routes Nuxt/Nitro. Le BFF est un proxy mince : termine l'auth, relaie, ne reshape pas. Un seul contrat fait foi, côté NestJS.</dd></dl></div>
+  <div class="ad"><h3><span class="id">AD-2</span> Hexagonal strict</h3><dl>
+    <dt>Empêche</dt><dd>que la règle métier fuie dans les services ou l'ORM ; des invariants juridiques contournables.</dd>
+    <dt>Règle</dt><dd>Domaine pur (sans décorateur framework/ORM) + ports + use-cases + adapters. Les dépendances pointent uniquement vers le domaine.</dd></dl></div>
+  <div class="ad"><h3><span class="id">AD-3</span> Contextes bornés étanches</h3><dl>
+    <dt>Empêche</dt><dd>deux propriétaires d'une même donnée ; un module lisant la table d'un autre.</dd>
+    <dt>Règle</dt><dd>Un contexte n'accède jamais au repo d'un autre. La donnée d'autrui se consomme via un port, ou via un événement de domaine.</dd></dl></div>
+
+  <p class="grp">Événements & cohérence</p>
+  <div class="ad"><h3><span class="id">AD-4</span> Communication par événements de domaine</h3><dl>
+    <dt>Empêche</dt><dd>le couplage du cœur à ses consommateurs.</dd>
+    <dt>Règle</dt><dd>Bus in-process (<code>CraValidé</code>, <code>FactureDéposée</code>…). Le cœur émet sans connaître ses abonnés.</dd></dl></div>
+  <div class="ad"><h3><span class="id">AD-5</span> Garantie de livraison différenciée</h3><dl>
+    <dt>Empêche</dt><dd>une trace d'audit perdue ; un échec d'email annulant une transition.</dd>
+    <dt>Règle</dt><dd>Dispatch dans l'Unit of Work. Audit = abonné synchrone, même transaction. Notifications via l'outbox transactionnel (AD-22).</dd></dl></div>
+  <div class="ad"><h3><span class="id">AD-21</span> Statut affiché = projection d'événements</h3><dl>
+    <dt>Empêche</dt><dd>deux contextes composant un statut divergent ; l'écriture croisée du statut.</dd>
+    <dt>Règle</dt><dd>Chaque contexte possède sa tranche (CRA→Validé ; Invoicing→Facturé ; Settlement→Réglé/Reçu). Le statut composite affiché est une projection (read-model) reconstruite des événements, jamais un champ traversant les contextes.</dd></dl></div>
+  <div class="ad"><h3><span class="id">AD-22</span> Outbox transactionnel</h3><dl>
+    <dt>Empêche</dt><dd>une notification perdue au recyclage Passenger ; un double-envoi ; une « transmission » silencieusement échouée.</dd>
+    <dt>Règle</dt><dd>Notification écrite dans un outbox, même transaction que le changement d'état. Relais après commit + clé d'idempotence. « Dépôt = transmission » satisfait par l'enregistrement durable. Les notifications persistées alimentent la cloche in-app (port de lecture). Matrice de routage FR30 portée ici.</dd></dl></div>
+
+  <p class="grp">Le cœur CRA</p>
+  <div class="ad"><h3><span class="id">AD-6</span> Propriété & résolution du TJM</h3><dl>
+    <dt>Empêche</dt><dd>deux sources de vérité du TJM ; des plages chevauchantes.</dd>
+    <dt>Règle</dt><dd>Projects est seul propriétaire des plages TJM (non chevauchantes). CRA résout via le port <code>TjmResolver.resolveForDate(date)</code>, jamais en lecture directe.</dd></dl></div>
+  <div class="ad"><h3><span class="id">AD-7</span> Machine à états possédée par l'agrégat</h3><dl>
+    <dt>Empêche</dt><dd>un statut fixé hors du domaine ; une transition illégale ; deux CRA pour une même période.</dd>
+    <dt>Règle</dt><dd>Transitions = méthodes de l'agrégat (<code>soumettre/valider/invalider</code>) qui vérifient l'état de départ. Aucun use-case/repo ne fixe le statut. Les éditions de contenu en Brouillon/Invalidé sont auto-sauvées sans transition. Unicité : un CRA par <code>(projet, période)</code>.</dd></dl></div>
+  <div class="ad"><h3><span class="id">AD-8</span> Immuabilité + snapshot figé</h3><dl>
+    <dt>Empêche</dt><dd>la modification d'un engagement signé ; trois montants divergents (CRA/PDF/facture).</dd>
+    <dt>Règle</dt><dd>À la validation, snapshot de forme fixe <code>{montant_total_centimes, devise, tjm_appliqués[], jours[]}</code> + horodatage + valideur. PDF et facture dérivent du snapshot, jamais recalculés. Aucune méthode de déverrouillage n'existe — l'absence <em>est</em> la garantie.</dd></dl></div>
+  <div class="ad"><h3><span class="id">AD-9</span> Légalité (domaine) vs autorisation (application)</h3><dl>
+    <dt>Règle</dt><dd>Le domaine garantit la légalité de la transition (état de départ). L'application garantit l'autorisation (rôle + organisation) via un port de politique.</dd></dl></div>
+
+  <p class="grp">Sécurité & cloisonnement</p>
+  <div class="ad"><h3><span class="id">AD-10</span> Cloisonnement par appartenance au projet</h3><dl>
+    <dt>Empêche</dt><dd>une fuite inter-orga ; qu'un CRA co-détenu fuite ou renvoie 404 au valideur.</dd>
+    <dt>Règle</dt><dd>Contexte d'acteur <code>{userId, rôles-par-projet}</code> = paramètre obligatoire de chaque use-case. L'accès dérive de l'<strong>appartenance au projet + rôle</strong>, jamais d'une égalité <code>org_id = acteur.orgId</code> (un CRA est co-détenu par les deux organisations).</dd></dl></div>
+  <div class="ad"><h3><span class="id">AD-11</span> Désactivation, jamais suppression</h3><dl>
+    <dt>Règle</dt><dd>Un membre ayant agi est désactivé, jamais supprimé : l'identité du signataire survit. Un membre retiré perd immédiatement l'accès (sessions invalidées).</dd></dl></div>
+  <div class="ad"><h3><span class="id">AD-14</span> Auth ; identité-seule au BFF, rôles côté IAM</h3><dl>
+    <dt>Empêche</dt><dd>un token exposé ; un NestJS non gardé ; une escalade via des rôles forgés/périmés.</dd>
+    <dt>Règle</dt><dd>argon2id + rate-limit login. Session cookie httpOnly persistée en MariaDB. Le BFF forge un JWT court portant uniquement <code>userId</code> — il n'autorise rien. IAM est la source de vérité des rôles, résolus à chaque requête. NestJS rejette toute requête sans le credential signé : la frontière de confiance est le secret, pas le réseau.</dd></dl></div>
+  <div class="ad"><h3><span class="id">AD-23</span> Cycle de vie IAM</h3><dl>
+    <dt>Règle</dt><dd>Toute organisation a ≥ 1 propriétaire actif (retrait du dernier interdit). Projects possède l'Invitation ; à l'acceptation, un use-case orchestre création de compte IAM + rattachement org/rôle.</dd></dl></div>
+
+  <p class="grp">Contrat d'API & données</p>
+  <div class="ad"><h3><span class="id">AD-12</span> Contrat unique, client généré, anti-drift</h3><dl>
+    <dt>Règle</dt><dd>DTO NestJS décorés → OpenAPI → client TS généré pour Nuxt. La génération est une tâche du pipeline Turborepo. Le front appelle l'API uniquement via le client généré.</dd></dl></div>
+  <div class="ad"><h3><span class="id">AD-13</span> Validation à deux niveaux</h3><dl>
+    <dt>Règle</dt><dd>Structurelle au bord (class-validator NestJS, jamais confiance au relais BFF) + métier dans les agrégats. La validation runtime fait foi côté NestJS.</dd></dl></div>
+  <div class="ad"><h3><span class="id">AD-17</span> Représentation monétaire unique</h3><dl>
+    <dt>Empêche</dt><dd>des erreurs d'arrondi ; deux contextes échangeant des montants sous des formes différentes.</dd>
+    <dt>Règle</dt><dd>VO <code>Money = {centimes, devise:"EUR"}</code>, jamais de flottant. Arrondi half-up à 2 décimales au niveau ligne, somme exacte. Ordre de calcul fixé.</dd></dl></div>
+  <div class="ad"><h3><span class="id">AD-20</span> Statut calculé back, reflété front</h3><dl>
+    <dt>Règle</dt><dd>Le statut (machine à états du domaine) est la source de vérité ; le front le reflète (pastille + libellé + icône, jamais la couleur seule) sans recalculer de transition. Jours fériés calculés côté serveur.</dd></dl></div>
+
+  <p class="grp">Facture, documents, front, ops</p>
+  <div class="ad"><h3><span class="id">AD-15</span> Facture : dépôt = transmission, jamais de génération</h3><dl>
+    <dt>Règle</dt><dd>Dépôt impossible tant que le CRA n'est pas validé. Dépôt = transmission (via outbox durable). PDF déposé validé au bord (MIME + taille). Remplacement possible tant que le règlement n'est pas confirmé. L'app ne génère jamais de facture (certification FR).</dd></dl></div>
+  <div class="ad"><h3><span class="id">AD-16</span> Documents privés, PDF figé</h3><dl>
+    <dt>Règle</dt><dd>Fichiers sur disque local hors webroot, jamais d'URL publique ; accès uniquement par endpoint authentifié + autorisé. PDF du CRA généré à la validation, immuable.</dd></dl></div>
+  <div class="ad"><h3><span class="id">AD-18</span> Migrations au déploiement</h3><dl>
+    <dt>Règle</dt><dd>Migrations MikroORM jouées explicitement à l'étape de déploiement, jamais au boot (process Passenger multiples).</dd></dl></div>
+  <div class="ad"><h3><span class="id">AD-19</span> Accès données front via le BFF</h3><dl>
+    <dt>Règle</dt><dd>Tout accès données passe par les server routes Nuxt (<code>useFetch</code>/<code>$fetch</code>). Aucun composant n'appelle NestJS ni ne manipule de token. État client = Pinia.</dd></dl></div>
+  <div class="ad"><h3><span class="id">AD-24</span> Sauvegarde & reprise (données probantes)</h3><dl>
+    <dt>Empêche</dt><dd>une perte irréversible de données signées sur un point de défaillance unique o2switch.</dd>
+    <dt>Règle</dt><dd>JetBackup o2switch + dump MariaDB périodique automatisé (incluant les fichiers), conservés hors o2switch. Restauration testée avant prod.</dd></dl></div>
+
+  <h2 id="conventions">Conventions de cohérence</h2>
+  <table>
+    <tr><th>Concern</th><th>Convention</th></tr>
+    <tr><td>Couches (par contexte)</td><td><code>domain/</code> · <code>application/</code> · <code>infrastructure/</code></td></tr>
+    <tr><td>Domaine ↔ persistance</td><td>Entités domaine pures séparées des modèles MikroORM + mappers (hexagonal strict)</td></tr>
+    <tr><td>Événements</td><td>Nom au passé, français métier ; payload = identifiants + données minimales, immuable</td></tr>
+    <tr><td>IDs · dates</td><td>UUID v7 ; ISO 8601 ; lignes-jours en date seule <code>YYYY-MM-DD</code> ; validation en timestamp UTC</td></tr>
+    <tr><td>Montants</td><td>VO <code>Money</code> centimes EUR, arrondi half-up à la ligne ; affichage <code>fr-FR</code> + <code>tabular-nums</code></td></tr>
+    <tr><td>Erreurs</td><td><code>{error:{code,message,details?}}</code>, code stable (enum) mappé par l'UI</td></tr>
+    <tr><td>Frontières (garde CI)</td><td>dependency-cruiser dans le pipeline lint Turborepo — la règle hexagonale est outillée</td></tr>
+    <tr><td>Sécurité</td><td>Rate-limit login ; validation fichiers (MIME + taille) ; secrets en env ; CORS fermé (seul le BFF appelle l'API)</td></tr>
+    <tr><td>Jours fériés FR</td><td><code>date-holidays</code>, pré-marqués mais forçables (contexte CRA)</td></tr>
+    <tr><td>Langue</td><td>Français uniquement, formats <code>fr-FR</code></td></tr>
+    <tr><td>Tests</td><td>Domaine = unitaires ; use-cases = intégration ; 1 e2e sur le tunnel critique</td></tr>
+    <tr><td>Front</td><td>Atomic design ; design system <code>ux/prototype-uiux-v2/design-system/MASTER.md</code> (ivoire/navy/accent)</td></tr>
+  </table>
+
+  <h2 id="stack">Stack <span style="font-size:13px;color:var(--muted);font-weight:400">— vérifiée juin 2026</span></h2>
+  <table>
+    <tr><th>Élément</th><th>Version</th></tr>
+    <tr><td>Node.js</td><td>24 LTS (Active LTS)</td></tr>
+    <tr><td>Monorepo</td><td>Turborepo 2.10.x</td></tr>
+    <tr><td>Front</td><td>Nuxt 4.4.x (+ Pinia, atomic design)</td></tr>
+    <tr><td>Back</td><td>NestJS 11.1.x (hexagonal strict)</td></tr>
+    <tr><td>ORM</td><td>MikroORM <code>^6</code> (6.6.x) — v7 GA différée</td></tr>
+    <tr><td>BDD</td><td>MariaDB (o2switch, ≥ 10.6)</td></tr>
+    <tr><td>Contrat API</td><td>@nestjs/swagger + class-validator → client TS généré</td></tr>
+    <tr><td>PDF</td><td>pdfmake 0.3.x (fallback pdf-lib)</td></tr>
+    <tr><td>Email</td><td>Brevo <code>@getbrevo/brevo ^5</code></td></tr>
+    <tr><td>Jours fériés</td><td>date-holidays</td></tr>
+    <tr><td>Hachage</td><td>argon2id</td></tr>
+    <tr><td>Hébergement / CI</td><td>o2switch (Passenger) · GitHub Actions → SSH/rsync</td></tr>
+  </table>
+
+  <h2 id="deploiement">Déploiement o2switch</h2>
+  <div class="mermaid">
+flowchart TB
+  user(["Prestataire / Valideur / Payeur"])
+  subgraph O2["o2switch — compte mutualisé cPanel (Passenger)"]
+    NUXT["App Passenger 1 — Nuxt/Nitro (BFF)<br/>domaine public · session · MariaDB"]
+    API["App Passenger 2 — NestJS (sous-domaine)<br/>gardée par JWT + secret partagé"]
+    MARIA[("MariaDB")]
+    DISK[["Disque hors webroot<br/>PDF CRA + factures"]]
+  end
+  BREVO["Brevo (email)"]
+  GH["GitHub Actions (build) → SSH/rsync"]
+  user -->|HTTPS| NUXT
+  NUXT -->|HTTPS + JWT signé| API
+  NUXT --> MARIA
+  API --> MARIA
+  API --> DISK
+  API --> BREVO
+  GH -. déploie .-> O2
+  </div>
+  <div class="callout warn"><strong>Contrainte assumée.</strong> En mutualisé cPanel, pas d'isolation réseau réelle de NestJS : il est joignable sur un sous-domaine mais <strong>rejette toute requête sans le credential signé du BFF</strong> (AD-14). Vraie isolation réseau = VPS, différée.</div>
+
+  <h2 id="donnees">Modèle de données — entités cœur</h2>
+  <div class="mermaid">
+erDiagram
+  ORGANISATION ||--o{ MEMBERSHIP : "regroupe"
+  USER ||--o{ MEMBERSHIP : "possède"
+  ORGANISATION ||--o{ PROJET : "prestataire/cliente"
+  PROJET ||--o{ TJM : "plages non chevauchantes"
+  PROJET ||--o{ INVITATION : "qualifie"
+  PROJET ||--o{ CRA : "période"
+  CRA ||--o{ LIGNE_JOUR : "jours"
+  CRA ||--o| SNAPSHOT : "figé à la validation"
+  CRA ||--o| FACTURE : "déposée si validé"
+  FACTURE ||--o| REGLEMENT : "suivi optionnel"
+  CRA ||--o{ EVENEMENT_AUDIT : "trace"
+  MEMBERSHIP ||--o{ EVENEMENT_AUDIT : "acteur (désactivé, jamais supprimé)"
+  </div>
+
+  <h2 id="etats">Cycle de vie du CRA <span style="font-size:13px;color:var(--muted);font-weight:400">(AD-7 / AD-8)</span></h2>
+  <div class="mermaid">
+stateDiagram-v2
+  [*] --> Brouillon
+  Brouillon --> Soumis : soumettre() (≥1 jour travaillé, tout jour couvert par TJM)
+  Soumis --> Brouillon : invalider(commentaire)
+  Soumis --> Validé : valider() — fige snapshot + horodatage + valideur
+  Validé --> Facturé : déposer facture (PDF)
+  Facturé --> Réglé : marquer réglé (optionnel)
+  Réglé --> ReçuConfirmé : confirmer réception (optionnel)
+  Validé --> [*] : IMMUABLE — aucune transition retour
+  </div>
+
+  <h2 id="arbo">Arborescence monorepo</h2>
+  <pre style="background:var(--code);color:#E6E8EC;padding:20px;border-radius:10px;overflow:auto;font-size:13px;line-height:1.55"><code>ibasho-do-cra/
+  turbo.json
+  apps/
+    web/            # Nuxt 4 — atomic design + server routes (BFF Nitro)
+      app/          # atoms / molecules / organisms / templates / pages
+      server/       # routes BFF : session, relais signé vers l'API
+    api/            # NestJS 11 — hexagonal strict
+      src/
+        iam/        domain/ application/ infrastructure/
+        projects/   domain/ application/ infrastructure/
+        cra/        domain/ application/ infrastructure/   # cœur
+        invoicing/  domain/ application/ infrastructure/
+        settlement/ domain/ application/ infrastructure/
+        notifications/  # outbox + abonné événements → Brevo (après commit)
+        audit/          # abonné événements (synchrone, même tx)
+        documents/      # pdfmake + stockage disque hors webroot
+        shared-kernel/  # bus d'événements, Money VO, types transverses
+  packages/
+    contracts/      # DTO + client API généré (OpenAPI)
+    config/         # tsconfig, eslint, presets partagés</code></pre>
+
+  <h2 id="capacites">Capacités → architecture</h2>
+  <table>
+    <tr><th>Capacité (FR)</th><th>Vit dans</th><th>Gouverné par</th></tr>
+    <tr><td>Organisations & membres (FR1–4)</td><td>iam</td><td>AD-3, AD-10, AD-11</td></tr>
+    <tr><td>Auth & session (NFR)</td><td>iam + BFF</td><td>AD-1, AD-14</td></tr>
+    <tr><td>Projets, TJM, invitations (FR5–11, 32)</td><td>projects</td><td>AD-3, AD-6, AD-23</td></tr>
+    <tr><td>Saisie CRA, calcul, auto-save (FR12–15)</td><td>cra + web</td><td>AD-7, AD-6, AD-17, AD-20</td></tr>
+    <tr><td>Soumission & validation/signature (FR16–22, 33)</td><td>cra</td><td>AD-7, AD-8, AD-9, AD-5</td></tr>
+    <tr><td>Facture & transmission (FR23–26)</td><td>invoicing + documents</td><td>AD-15, AD-16, AD-22</td></tr>
+    <tr><td>Suivi du règlement (FR27–29)</td><td>settlement</td><td>AD-3, AD-4, AD-21</td></tr>
+    <tr><td>Notifications + cloche (FR30)</td><td>notifications → outbox → Brevo</td><td>AD-4, AD-5, AD-22</td></tr>
+    <tr><td>Tableau de bord / vue rapide (FR31)</td><td>web + read-model</td><td>AD-19, AD-20, AD-21</td></tr>
+    <tr><td>Journal d'audit (NFR)</td><td>audit</td><td>AD-5, AD-11</td></tr>
+    <tr><td>Génération & stockage PDF (FR21, 25)</td><td>documents</td><td>AD-16, AD-24</td></tr>
+  </table>
+
+  <h2 id="deferred">Différé</h2>
+  <ul>
+    <li><strong>Isolation réseau réelle de NestJS</strong> — durcissement via VPS, plus tard.</li>
+    <li><strong>Staging</strong> — local + prod seuls en v1.</li>
+    <li><strong>Rôle intermédiaire + marge + confidentialité des prix</strong> (v2).</li>
+    <li><strong>Module contrat collaboratif</strong> (v2 : sections, export Word/PDF, signature du contrat).</li>
+    <li><strong>Synthèses / dashboards pluriannuels</strong> (v2).</li>
+    <li><strong>Signature eIDAS avancée</strong> — Option A suffit en v1.</li>
+    <li><strong>Conservation & RGPD</strong> — durée de rétention ; anonymisation vs AD-11 face au droit à l'effacement.</li>
+    <li><strong>Observabilité</strong> — logs/métriques/alerting non outillés en v1.</li>
+    <li><strong>MikroORM v7</strong> — migration différée après stabilisation v1.</li>
+  </ul>
+
+  <h2 id="reconcile">À réconcilier en amont</h2>
+  <div class="callout fix">
+    <strong>Deux divergences source connues</strong>, issues de décisions prises en coaching :
+    <ol style="margin:8px 0 0">
+      <li><strong>Addendum PRD</strong> dit PostgreSQL → l'archi a basculé sur <strong>MariaDB</strong> (PostgreSQL o2switch = 9.6 EOL en voie de retrait). À mettre à jour dans l'addendum.</li>
+      <li><strong>Doc UX (draft)</strong> évoque un déverrouillage admin d'un CRA validé → contredit FR19 (immuable, jamais déverrouillable). À retirer du doc UX. La référence design y est aussi à corriger vers <code>prototype-uiux-v2</code>.</li>
+    </ol>
+  </div>
+
+  <footer>
+    Gestionnaire de CRA — Solution Design v1 · compagnon de <code>ARCHITECTURE-SPINE.md</code> · 29 juin 2026.<br>
+    Spine distillée puis durcie par une passe de revue à 5 relecteurs (rubric, versions, adversarial, réconciliation PRD & UX).
+  </footer>
+</main>
+</div>
+<script>
+  mermaid.initialize({startOnLoad:true, theme:'base', themeVariables:{
+    primaryColor:'#FBFAF7', primaryTextColor:'#14171E', primaryBorderColor:'#2C5BEF',
+    lineColor:'#6B6F78', fontFamily:'Inter, sans-serif', fontSize:'14px'
+  }});
+</script>
+</body>
+</html>
