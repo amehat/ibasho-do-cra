@@ -1,16 +1,23 @@
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
+import { Reflector } from "@nestjs/core";
 import { verifyBffToken, type BffIdentity } from "./bff-identity";
+import { IS_PUBLIC_KEY } from "./public.decorator";
 
 interface RequestLike {
   headers: Record<string, string | string[] | undefined>;
   identity?: BffIdentity;
 }
 
-// Garde NestJS : aucune requête n'est servie sans le credential signé du BFF (AD-14).
-// La frontière de confiance est le secret partagé, pas le réseau (mutualisé o2switch).
+// Garde GLOBALE (default-deny, AD-14) : toute requête est rejetée sans credential signé du BFF,
+// sauf les routes explicitement marquées @Public(). Frontière de confiance = le secret, pas le réseau.
 @Injectable()
 export class BffIdentityGuard implements CanActivate {
+  constructor(private readonly reflector: Reflector) {}
+
   canActivate(ctx: ExecutionContext): boolean {
+    const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [ctx.getHandler(), ctx.getClass()]);
+    if (isPublic) return true;
+
     const req = ctx.switchToHttp().getRequest<RequestLike>();
     const raw = req.headers["authorization"];
     const header = Array.isArray(raw) ? raw[0] ?? "" : raw ?? "";

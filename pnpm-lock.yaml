@@ -20,6 +20,9 @@ importers:
 
   apps/api:
     dependencies:
+      '@mikro-orm/cli':
+        specifier: ^6.6.0
+        version: 6.6.15(mariadb@3.4.5)
       '@mikro-orm/core':
         specifier: ^6.6.0
         version: 6.6.15
@@ -66,9 +69,6 @@ importers:
       '@cra/config':
         specifier: workspace:*
         version: link:../../packages/config
-      '@mikro-orm/cli':
-        specifier: ^6.6.0
-        version: 6.6.15(mariadb@3.4.5)
       '@types/jsonwebtoken':
         specifier: ^9.0.7
         version: 9.0.10

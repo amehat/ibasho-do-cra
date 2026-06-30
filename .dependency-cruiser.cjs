@@ -1,13 +1,13 @@
 /** Garde-fous d'architecture hexagonale (AD-2, AD-3).
- *  Le domaine reste pur ; les couches respectent la direction ; les contextes restent étanches. */
+ *  Le domaine est pur ; les couches respectent la direction ; les contextes restent étanches. */
 module.exports = {
   forbidden: [
     {
-      name: "domain-no-framework",
-      comment: "AD-2 : la couche domaine ne dépend d'aucun framework/ORM ni des couches externes.",
+      name: "domain-pure",
+      comment: "AD-2 : le domaine est pur — aucun import de dépendance externe ni des couches supérieures.",
       severity: "error",
       from: { path: "^src/[^/]+/domain/" },
-      to: { path: "(^src/[^/]+/(application|infrastructure)/|/node_modules/(@nestjs|@mikro-orm|@nuxt|nuxt|express|rxjs|jsonwebtoken)/)" }
+      to: { path: "(^src/[^/]+/(application|infrastructure)/|/node_modules/)" }
     },
     {
       name: "application-no-infrastructure",
@@ -21,14 +21,8 @@ module.exports = {
       comment: "AD-3 : un contexte n'importe jamais le code interne d'un autre contexte (sauf shared-kernel).",
       severity: "error",
       from: { path: "^src/([^/]+)/" },
-      to: {
-        path: "^src/([^/]+)/(domain|application|infrastructure)/",
-        pathNot: ["^src/$1/", "^src/shared-kernel/"]
-      }
+      to: { path: "^src/([^/]+)/(domain|application|infrastructure)/", pathNot: ["^src/$1/", "^src/shared-kernel/"] }
     }
   ],
-  options: {
-    doNotFollow: { path: "node_modules" },
-    tsConfig: { fileName: "tsconfig.json" }
-  }
+  options: { doNotFollow: { path: "node_modules" }, tsConfig: { fileName: "tsconfig.json" } }
 };

@@ -13,3 +13,7 @@ jobs:
         with: { node-version: 24, cache: pnpm }
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec turbo run build lint test
+      # Anti-drift du contrat (AD-12) : régénère le client et échoue si le commit diverge de l'OpenAPI courant.
+      - run: pnpm exec turbo run generate:client
+      - name: Vérifier l'absence de drift du contrat
+        run: git diff --exit-code packages/contracts/src/generated

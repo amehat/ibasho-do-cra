@@ -7,7 +7,7 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "prepare": "nuxt prepare",
-    "lint": "depcruise server --config ../../.dependency-cruiser.cjs",
+    "lint": "depcruise server app/stores --config ../../.dependency-cruiser.cjs",
     "test": "vitest run"
   },
   "dependencies": {

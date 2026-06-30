@@ -5,6 +5,9 @@ set -euo pipefail
 TS="$(date +%F-%H%M)"
 DEST="${BACKUP_DIR:-./backups}"
 mkdir -p "$DEST"
-mysqldump --single-transaction --routines -h "${DB_HOST:?}" -u "${DB_USER:?}" -p"${DB_PASSWORD:?}" "${DB_NAME:?}" | gzip > "$DEST/db-$TS.sql.gz"
+# Mot de passe via MYSQL_PWD (jamais en argv -> invisible dans `ps` sur hôte mutualisé partagé).
+export MYSQL_PWD="${DB_PASSWORD:?}"
+mysqldump --single-transaction --routines -h "${DB_HOST:?}" -u "${DB_USER:?}" "${DB_NAME:?}" | gzip > "$DEST/db-$TS.sql.gz"
+unset MYSQL_PWD
 tar czf "$DEST/files-$TS.tar.gz" "${FILES_DIR:-./storage}" 2>/dev/null || echo "Aucun dossier fichiers ($FILES_DIR) — ignoré"
 echo "Sauvegarde -> $DEST/db-$TS.sql.gz (+ fichiers). À répliquer hors o2switch."

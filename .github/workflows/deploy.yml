@@ -2,7 +2,8 @@ name: Deploy (o2switch)
 on:
   workflow_dispatch: {}
   push: { tags: ["v*"] }
-# Build en CI (jamais sur le mutualisé), déploiement par rsync, migrations en étape dédiée (AD-18, AD-24).
+# Build en CI (jamais sur le mutualisé). Déploiement par rsync d'artefacts auto-portants.
+# Migrations jouées AVANT le restart Passenger (AD-18) ; échec migration => pas de restart (AD-24).
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -14,17 +15,21 @@ jobs:
         with: { node-version: 24, cache: pnpm }
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec turbo run generate:client build
+      # Paquet API auto-portant (dist + node_modules de prod, incluant @mikro-orm/cli)
+      - run: pnpm --filter @cra/api --prod deploy ./deploy/api
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.O2SWITCH_SSH_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H "${{ secrets.O2SWITCH_HOST }}" >> ~/.ssh/known_hosts
-      - name: Rsync API
-        run: rsync -az --delete apps/api/dist apps/api/app.js apps/api/package.json "${{ secrets.O2SWITCH_USER }}@${{ secrets.O2SWITCH_HOST }}:~/api/"
-      - name: Rsync Web
+      - name: Rsync API (dist + node_modules prod + app.js)
+        run: |
+          rsync -az --delete ./deploy/api/ "${{ secrets.O2SWITCH_USER }}@${{ secrets.O2SWITCH_HOST }}:~/api/"
+          rsync -az apps/api/app.js "${{ secrets.O2SWITCH_USER }}@${{ secrets.O2SWITCH_HOST }}:~/api/"
+      - name: Rsync Web (.output auto-portant Nitro)
         run: rsync -az --delete apps/web/.output "${{ secrets.O2SWITCH_USER }}@${{ secrets.O2SWITCH_HOST }}:~/web/"
-      - name: Migrations (AD-18 — jamais au boot)
-        run: ssh "${{ secrets.O2SWITCH_USER }}@${{ secrets.O2SWITCH_HOST }}" 'cd ~/api && npm ci --omit=dev && node_modules/.bin/mikro-orm migration:up'
+      - name: Migrations AVANT restart (AD-18) — échec => pas de restart
+        run: ssh "${{ secrets.O2SWITCH_USER }}@${{ secrets.O2SWITCH_HOST }}" 'cd ~/api && node_modules/.bin/mikro-orm migration:up'
       - name: Restart Passenger
         run: ssh "${{ secrets.O2SWITCH_USER }}@${{ secrets.O2SWITCH_HOST }}" 'mkdir -p ~/api/tmp ~/web/tmp && touch ~/api/tmp/restart.txt ~/web/tmp/restart.txt'

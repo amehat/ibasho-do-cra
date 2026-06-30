@@ -1,15 +1,15 @@
-import { Controller, Get, Req, UseGuards } from "@nestjs/common";
-import { ApiTags } from "@nestjs/swagger";
-import { BffIdentityGuard } from "./bff-identity.guard";
+import { Controller, Get, Req } from "@nestjs/common";
+import { ApiOkResponse, ApiTags } from "@nestjs/swagger";
 import type { BffIdentity } from "./bff-identity";
+import { WhoamiResponseDto } from "./whoami.dto";
 
-// Démonstration du chemin navigateur -> BFF -> API gardée (AD-1, AD-14).
+// Gardé par la garde globale (AD-14). Démontre le chemin navigateur -> BFF -> API (AD-1).
 @ApiTags("iam")
 @Controller("whoami")
-@UseGuards(BffIdentityGuard)
 export class WhoamiController {
   @Get()
-  whoami(@Req() req: { identity?: BffIdentity }): { userId: string | undefined } {
-    return { userId: req.identity?.userId };
+  @ApiOkResponse({ type: WhoamiResponseDto })
+  whoami(@Req() req: { identity?: BffIdentity }): WhoamiResponseDto {
+    return { userId: req.identity!.userId };
   }
 }

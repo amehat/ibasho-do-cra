@@ -2,7 +2,8 @@
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
     "build": { "dependsOn": ["^build"], "outputs": ["dist/**", ".output/**", ".nuxt/**"] },
-    "generate:client": { "cache": false, "outputs": ["src/generated/**"] },
+    "emit:openapi": { "dependsOn": ["build"], "outputs": ["openapi.json"] },
+    "generate:client": { "dependsOn": ["@cra/api#emit:openapi"], "outputs": ["src/generated/**"] },
     "lint": {},
     "test": {},
     "dev": { "cache": false, "persistent": true }
