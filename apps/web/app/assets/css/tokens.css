@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Surfaces & encre */
+  --canvas: #F4F2ED; --surface: #FFFFFF; --surface-2: #FAF9F6;
+  --ink: #16191F; --ink-2: #565C68; --ink-3: #888E9A;
+  --line: #E7E3DB; --line-2: #D8D3C8;
+  /* Marque & action */
+  --shell: #14171E; --shell-ink: #CBD2DE; --shell-ink-strong: #FFFFFF;
+  --accent: #2C5BEF; --accent-ink: #1E45C8; --accent-strong: #2148C7; --accent-soft: #EAF0FE; --ring: #2C5BEF;
+  /* Statut (point / fond / texte) */
+  --st-draft: #6B7280; --st-draft-bg: #F1F0EC; --st-draft-ink: #3D424C;
+  --st-pending: #C77A0A; --st-pending-bg: #FBF1E2; --st-pending-ink: #8A5407;
+  --st-reject: #D1392B; --st-reject-bg: #FBEBE9; --st-reject-ink: #9A211A;
+  --st-valid: #1C8A4A; --st-valid-bg: #E7F4EC; --st-valid-ink: #136636;
+  --st-invoiced: #5145D8; --st-invoiced-bg: #ECEAFB; --st-invoiced-ink: #3A30A8;
+  --st-paid: #0E9488; --st-paid-bg: #E2F3F1; --st-paid-ink: #0A6A60;
+  /* Espacement / rayons / ombres */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px;
+  --r-card: 18px; --r-tile: 14px; --r-control: 10px; --r-pill: 999px;
+  --shadow-sm: 0 1px 2px rgba(20,23,30,.05), 0 1px 1px rgba(20,23,30,.03);
+  --shadow-md: 0 6px 18px rgba(20,23,30,.07), 0 2px 5px rgba(20,23,30,.04);
+  --shadow-lg: 0 18px 44px rgba(20,23,30,.13);
+  --sidebar-w: 256px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-size: 16px; line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4, .display { font-family: Outfit, sans-serif; line-height: 1.15; color: var(--ink); }
+.num, .tabular { font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
+a { color: var(--accent-ink); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Focus visible cohérent (a11y) */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--ring); outline-offset: 2px; border-radius: var(--r-control);
+}
+
+.eyebrow { font: 600 12px/1 Inter; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card); box-shadow: var(--shadow-sm); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}

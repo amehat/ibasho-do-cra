@@ -9,3 +9,4 @@ export type CreateOrganisationInput = components["schemas"]["CreateOrganisationD
 export type Member = components["schemas"]["MemberDto"];
 export type AddMemberInput = components["schemas"]["AddMemberDto"];
 export type AddMemberResponse = components["schemas"]["AddMemberResponseDto"];
+export type MyProfile = components["schemas"]["MyProfileDto"];
