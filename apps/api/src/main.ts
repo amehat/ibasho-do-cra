@@ -1,4 +1,7 @@
 import "reflect-metadata";
+import { config as loadEnv } from "dotenv";
+import { resolve as resolvePath } from "node:path";
+loadEnv({ path: resolvePath(__dirname, "../.env") }); // apps/api/.env, quel que soit le cwd
 import { NestFactory } from "@nestjs/core";
 import {Logger, ValidationPipe} from "@nestjs/common";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";

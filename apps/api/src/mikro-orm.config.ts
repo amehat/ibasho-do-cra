@@ -1,3 +1,6 @@
+import { config as loadEnv } from "dotenv";
+import { resolve as resolvePath } from "node:path";
+loadEnv({ path: resolvePath(__dirname, "../.env") }); // apps/api/.env, quel que soit le cwd
 import { defineConfig } from "@mikro-orm/mariadb";
 import { Migrator } from "@mikro-orm/migrations";
 import { HealthCheck } from "./shared-kernel/persistence/health-check.entity";

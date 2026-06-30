@@ -11,7 +11,10 @@
     "test": "turbo run test",
     "dev": "turbo run dev",
     "generate:client": "turbo run generate:client",
-    "depcruise": "depcruise apps/*/src apps/*/server --config .dependency-cruiser.cjs"
+    "depcruise": "depcruise apps/*/src apps/*/server --config .dependency-cruiser.cjs",
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down",
+    "db:migrate": "pnpm --filter @cra/api exec mikro-orm migration:up"
   },
   "devDependencies": {
     "turbo": "^2.10.0",
